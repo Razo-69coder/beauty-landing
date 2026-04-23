@@ -38,13 +38,41 @@ body::before{
 }
 @keyframes twinkle{0%,100%{opacity:0;transform:scale(.4);}50%{opacity:1;transform:scale(1);}}
 
+/* Scroll Reveal */
+.reveal{opacity:0;transform:translateY(40px);transition:all .8s cubic-bezier(.4,0,.2,1);}
+.reveal.active{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:.1s;}
+.reveal-delay-2{transition-delay:.2s;}
+.reveal-delay-3{transition-delay:.3s;}
+.reveal-delay-4{transition-delay:.4s;}
+
+/* Noise overlay */
+.noise-overlay{
+  position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.03;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
 /* ─── NAV ─── */
 nav{
   position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:200;
-  background:rgba(13,0,21,.8);backdrop-filter:blur(20px);
-  border:1px solid rgba(255,105,180,.22);border-radius:50px;
+  background:rgba(13,0,21,.6);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  border:1px solid rgba(255,105,180,.15);
+  border-radius:50px;
   display:flex;align-items:center;gap:6px;
   padding:8px 8px 8px 28px;width:fit-content;max-width:calc(100% - 32px);
+  box-shadow:0 8px 32px rgba(255,105,180,.1), inset 0 1px 0 rgba(255,255,255,.05);
+  transition:all .4s cubic-bezier(.4,0,.2,1);
+  animation:navSlideIn .8s cubic-bezier(.4,0,.2,1);
+}
+@keyframes navSlideIn{
+  from{opacity:0;transform:translateX(-50%) translateY(-20px);}
+  to{opacity:1;transform:translateX(-50%) translateY(0);}
+}
+nav.scrolled{
+  background:rgba(13,0,21,.85);
+  box-shadow:0 12px 48px rgba(255,105,180,.15), inset 0 1px 0 rgba(255,255,255,.08);
 }
 .logo-wrap{display:flex;align-items:center;gap:10px;margin-right:20px;}
 .logo-icon{
@@ -52,6 +80,7 @@ nav{
   background:linear-gradient(135deg,var(--pink),var(--purple));
   display:flex;align-items:center;justify-content:center;
   font-size:16px;flex-shrink:0;
+  box-shadow:0 0 20px rgba(255,105,180,.4);
 }
 .logo{
   font-family:'Black Han Sans',sans-serif;font-size:18px;letter-spacing:1px;
@@ -61,15 +90,27 @@ nav{
 .nav-links{display:flex;gap:2px;}
 .nav-links a{
   text-decoration:none;color:rgba(255,255,255,.55);font-size:13px;font-weight:700;
-  padding:8px 16px;border-radius:30px;transition:all .2s;
+  padding:8px 16px;border-radius:30px;transition:all .3s;
 }
 .nav-links a:hover{background:rgba(255,105,180,.12);color:var(--pink);}
 .nav-cta{
   background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;border:none;
   padding:12px 26px;border-radius:30px;font-size:13px;font-weight:800;cursor:pointer;
-  font-family:'Nunito',sans-serif;transition:opacity .2s;letter-spacing:.5px;
+  font-family:'Nunito',sans-serif;transition:all .3s;letter-spacing:.5px;
+  box-shadow:0 4px 20px rgba(255,105,180,.3);
+  position:relative;overflow:hidden;
 }
-.nav-cta:hover{opacity:.85;}
+.nav-cta::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
+  transform:translateX(-100%);
+  transition:transform .6s;
+}
+.nav-cta:hover::before{transform:translateX(100%);}
+.nav-cta:hover{
+  box-shadow:0 8px 32px rgba(255,105,180,.5);
+  transform:translateY(-2px);
+}
 
 /* ─── HERO ─── */
 .hero{
@@ -313,6 +354,62 @@ nav{
   position:relative;z-index:1;
   filter:drop-shadow(0 10px 40px rgba(255,105,180,.3));
 }
+
+/* ─── LEAD FORM ─── */
+.form-container{
+  max-width:640px;margin:0 auto;
+  position:relative;
+}
+.lead-form{
+  background:rgba(255,105,180,.04);
+  border:1px solid rgba(255,105,180,.15);
+  border-radius:20px;padding:40px;
+  display:flex;flex-direction:column;gap:16px;
+}
+.form-row{display:flex;gap:16px;}
+@media(max-width:600px){.form-row{flex-direction:column;}}
+.form-group{flex:1;}
+.form-group input,.form-group select{
+  width:100%;padding:16px 20px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,105,180,.2);
+  border-radius:12px;
+  color:#fff;font-size:15px;font-family:'Nunito',sans-serif;
+  transition:all .3s;
+  outline:none;
+}
+.form-group input::placeholder{color:rgba(255,255,255,.35);}
+.form-group input:focus,.form-group select:focus{
+  border-color:var(--pink);
+  box-shadow:0 0 20px rgba(255,105,180,.15);
+  background:rgba(255,105,180,.08);
+}
+.form-group select{
+  cursor:pointer;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23FF69B4' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 16px center;
+  padding-right:40px;
+}
+.form-group select option{background:var(--bg1);color:#fff;}
+.form-submit{
+  width:100%;padding:18px;margin-top:8px;
+  font-size:16px;
+}
+.form-note{
+  font-size:11px;color:rgba(255,255,255,.3);text-align:center;
+  margin-top:8px;
+}
+.form-success{
+  display:none;text-align:center;padding:40px;
+  background:rgba(255,105,180,.08);
+  border:1px solid rgba(255,105,180,.3);
+  border-radius:20px;
+}
+.form-success.show{display:block;animation:fadeInUp .5s;}
+.success-icon{font-size:48px;margin-bottom:16px;}
+.form-success h3{font-size:24px;margin-bottom:8px;color:var(--pink);}
+.form-success p{color:rgba(255,255,255,.6);}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 
 /* ─── PRICING ─── */
 .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
@@ -966,8 +1063,50 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
   </div>
 </section>
 
+<!-- ─── LEAD FORM ─── -->
+<section class="section section-divider" id="contact">
+  <p class="s-label">Начни сегодня</p>
+  <h2 class="s-title">ОСТАВЬ <span>ЗАЯВКУ</span></h2>
+  <div class="form-container reveal">
+    <form class="lead-form" id="leadForm" onsubmit="submitLead(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <input type="text" id="leadName" placeholder="Ваше имя" required>
+        </div>
+        <div class="form-group">
+          <input type="tel" id="leadPhone" placeholder="+7 (___) ___-__-__" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <input type="text" id="leadCity" placeholder="Город">
+        </div>
+        <div class="form-group">
+          <select id="leadService">
+            <option value="">Выберите услугу</option>
+            <option value="manicure">Маникюр / Педикюр</option>
+            <option value="brows">Брови</option>
+            <option value="lashes">Ресницы</option>
+            <option value="makeup">Макияж</option>
+            <option value="other">Другое</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="btn-glow form-submit">
+        ✦ Запустить бесплатно
+      </button>
+      <p class="form-note">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
+    </form>
+    <div class="form-success" id="formSuccess">
+      <div class="success-icon">✨</div>
+      <h3>Заявка отправлена!</h3>
+      <p>Мы свяжемся с вами в ближайшее время</p>
+    </div>
+  </div>
+</section>
+
 <!-- ─── FINAL CTA ─── -->
-<div class="final-cta" id="cta">
+<div class="final-cta reveal" id="cta">
   <div class="cta-inner">
     <div class="cta-tag">7 дней бесплатно</div>
     <h2 class="cta-h">ГОТОВА РАБОТАТЬ<br><span>БЕЗ ХАОСА?</span></h2>
@@ -1015,6 +1154,8 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
   <p class="footer-copy">© 2025 BEAUTY BOOK · ВСЕ ПРАВА ЗАЩИЩЕНЫ</p>
 </footer>
 
+<div class="noise-overlay"></div>
+
 <script>
 (function(){
   const g=document.getElementById('glitter');
@@ -1026,11 +1167,48 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
   }
 })();
 
+// Scroll reveal
+function reveal(){
+  document.querySelectorAll('.reveal').forEach(el=>{
+    const top=el.getBoundingClientRect().top;
+    if(top<window.innerHeight-100)el.classList.add('active');
+  });
+}
+window.addEventListener('scroll',reveal);
+window.addEventListener('load',reveal);
+
+// Nav scroll effect
+window.addEventListener('scroll',()=>{
+  const nav=document.querySelector('nav');
+  if(window.scrollY>50)nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+
 function toggleFaq(btn){
   const item=btn.closest('.faq-item');
   const isOpen=item.classList.contains('open');
   document.querySelectorAll('.faq-item.open').forEach(el=>el.classList.remove('open'));
   if(!isOpen)item.classList.add('open');
+}
+
+// Lead form
+function submitLead(e){
+  e.preventDefault();
+  const form=document.getElementById('leadForm');
+  const success=document.getElementById('formSuccess');
+  const name=document.getElementById('leadName').value;
+  const phone=document.getElementById('leadPhone').value;
+  const city=document.getElementById('leadCity').value;
+  const service=document.getElementById('leadService').value;
+  
+  // Log data (in production, send to backend)
+  console.log('Lead:',{name,phone,city,service});
+  
+  form.style.display='none';
+  success.classList.add('show');
+  
+  // Open bot
+  setTimeout(()=>window.open('https://t.me/Beauty6699_bot','_blank'),1500);
 }
 </script>
 </body>
