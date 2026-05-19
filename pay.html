@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solva Beauty — Оплата тарифа</title>
+<meta name="description" content="Выбери тариф Solva Beauty и получи доступ к полному функционалу за 30 секунд">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nunito:wght@400;600;700;800;900&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --pink:#FF69B4;--purple:#9370DB;
+  --bg1:#0d0015;--bg2:#130820;--bg3:#0a1220;
+  --white:#fff;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+  background:linear-gradient(150deg,#1e0030 0%,#160025 35%,#120020 65%,#1a0028 100%);
+  background-attachment:fixed;
+  color:var(--white);font-family:'Nunito',sans-serif;overflow-x:hidden;
+}
+
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(147,112,219,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(147,112,219,.035) 1px,transparent 1px);
+  background-size:52px 52px;pointer-events:none;z-index:0;
+}
+
+.glitter{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.spark{
+  position:absolute;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,105,180,.85),transparent 70%);
+  animation:twinkle 4s ease-in-out infinite;
+}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.4);}50%{opacity:1;transform:scale(1);}}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:200;
+  background:rgba(13,0,21,.8);backdrop-filter:blur(20px);
+  border:1px solid rgba(255,105,180,.22);border-radius:50px;
+  display:flex;align-items:center;gap:6px;
+  padding:8px 8px 8px 28px;width:fit-content;max-width:calc(100% - 32px);
+}
+.logo-wrap{display:flex;align-items:center;gap:10px;margin-right:20px;}
+.logo-icon{
+  width:30px;height:30px;border-radius:8px;
+  background:linear-gradient(135deg,var(--pink),var(--purple));
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;flex-shrink:0;
+}
+.logo{
+  font-family:'Black Han Sans',sans-serif;font-size:18px;letter-spacing:1px;
+  background:linear-gradient(90deg,var(--pink),var(--purple));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.nav-links{display:flex;gap:2px;}
+.nav-links a{
+  text-decoration:none;color:rgba(255,255,255,.55);font-size:13px;font-weight:700;
+  padding:8px 16px;border-radius:30px;transition:all .2s;
+}
+.nav-links a:hover{background:rgba(255,105,180,.12);color:var(--pink);}
+.nav-cta{
+  background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.12);
+  padding:12px 26px;border-radius:30px;font-size:13px;font-weight:800;cursor:pointer;
+  font-family:'Nunito',sans-serif;transition:all .2s;letter-spacing:.5px;text-decoration:none;
+}
+.nav-cta:hover{background:rgba(255,255,255,.14);color:var(--pink);border-color:rgba(255,105,180,.3);}
+
+/* ─── HERO ─── */
+.hero{
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:120px 20px 60px;
+  position:relative;z-index:1;
+}
+.hero-center{
+  text-align:center;
+  display:flex;flex-direction:column;align-items:center;
+  position:relative;z-index:2;max-width:800px;
+}
+.hero-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid rgba(255,105,180,.35);
+  background:rgba(255,105,180,.07);
+  color:var(--pink);font-size:11px;font-weight:800;
+  letter-spacing:3px;text-transform:uppercase;
+  padding:8px 22px;border-radius:6px;margin-bottom:28px;
+}
+.hero h1{
+  font-family:'Black Han Sans',sans-serif;
+  font-size:clamp(44px,5.5vw,80px);
+  line-height:.9;letter-spacing:-2px;margin-bottom:14px;
+  background:linear-gradient(90deg,var(--pink) 0%,#d060ff 50%,var(--pink) 100%);
+  background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:shimmer 5s linear infinite;
+}
+@keyframes shimmer{from{background-position:0 center;}to{background-position:200% center;}}
+.hero-desc{
+  font-size:16px;color:rgba(255,255,255,.55);
+  max-width:500px;margin:0 auto 40px;line-height:1.75;font-weight:600;
+}
+
+/* ─── PRICING ─── */
+.pricing-section{padding:0 20px 80px;max-width:1100px;margin:0 auto;position:relative;z-index:1;}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.p-card{
+  border:1px solid rgba(255,255,255,.08);border-radius:16px;
+  padding:36px 28px;position:relative;overflow:hidden;
+  transition:border-color .3s,transform .2s;
+  display:flex;flex-direction:column;
+}
+.p-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(160deg,rgba(255,105,180,.03),transparent 55%);pointer-events:none;
+}
+.p-card:hover{border-color:rgba(255,105,180,.35);transform:translateY(-4px);}
+.p-card.featured{border-color:rgba(255,105,180,.45);background:rgba(255,105,180,.04);}
+.p-hot{
+  position:absolute;top:18px;right:18px;
+  background:var(--pink);color:#fff;
+  font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;
+  padding:4px 10px;border-radius:4px;
+}
+.p-tier{font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:16px;}
+.p-amount{font-family:'Black Han Sans',sans-serif;font-size:52px;line-height:1;margin-bottom:4px;}
+.p-amount small{font-size:20px;color:rgba(255,255,255,.3);}
+.p-period{font-size:12px;color:rgba(255,255,255,.3);margin-bottom:8px;}
+.p-discounts{font-size:12px;color:var(--pink);font-weight:700;margin-bottom:8px;line-height:1.7;}
+.saving-badge{
+  display:inline-block;background:rgba(255,105,180,.15);
+  border:1px solid rgba(255,105,180,.4);color:var(--pink);
+  font-size:11px;font-weight:800;padding:4px 12px;
+  border-radius:20px;margin-bottom:16px;letter-spacing:.5px;
+}
+.p-hr{height:1px;background:linear-gradient(90deg,transparent,rgba(255,105,180,.3),transparent);margin:0 0 20px;}
+.p-list{list-style:none;margin-bottom:24px;flex:1;}
+.p-list li{
+  font-size:14px;color:rgba(255,255,255,.6);padding:8px 0;
+  border-bottom:1px solid rgba(255,255,255,.05);
+  display:flex;align-items:center;gap:10px;
+}
+.p-list li::before{content:'◆';color:var(--pink);font-size:8px;flex-shrink:0;}
+.p-list li.na{color:rgba(255,255,255,.25);}
+.p-list li.na::before{content:'✕';color:rgba(255,255,255,.25);font-size:10px;}
+.pay-btn{
+  width:100%;padding:14px;border-radius:8px;font-size:13px;font-weight:800;cursor:pointer;
+  font-family:'Nunito',sans-serif;letter-spacing:1px;border:none;transition:all .2s;
+  background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.1);
+}
+.pay-btn.primary{
+  background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;border:none;
+  box-shadow:0 8px 24px rgba(255,105,180,.25);
+}
+.pay-btn.primary:hover{transform:scale(1.02);opacity:.9;}
+.pay-btn:hover:not(.primary){background:rgba(255,255,255,.1);color:var(--pink);border-color:rgba(255,105,180,.3);}
+
+/* ─── PAYMENT BLOCK ─── */
+.payment-block{
+  display:none;margin-top:16px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,105,180,.2);
+  border-radius:12px;padding:20px;
+}
+.payment-block.open{display:block;}
+.pay-title{font-size:13px;font-weight:800;color:var(--pink);margin-bottom:12px;letter-spacing:1px;text-transform:uppercase;}
+.pay-step{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:8px;line-height:1.6;}
+.pay-step strong{color:var(--white);}
+.pay-link-btn{
+  display:block;width:100%;padding:12px;border-radius:8px;margin:10px 0 16px;
+  background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;border:none;
+  font-size:13px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;
+  text-align:center;text-decoration:none;transition:opacity .2s;
+}
+.pay-link-btn:hover{opacity:.85;}
+.pay-form{display:flex;flex-direction:column;gap:10px;}
+.pay-input{
+  padding:12px 16px;border-radius:8px;border:1.5px solid rgba(255,105,180,.4);
+  background:rgba(255,255,255,.05);color:#fff;font-size:14px;
+  font-family:'Nunito',sans-serif;outline:none;transition:border-color .2s;
+}
+.pay-input:focus{border-color:var(--pink);}
+.pay-input::placeholder{color:rgba(255,255,255,.35);}
+.pay-submit{
+  padding:12px;border-radius:8px;border:none;
+  background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;
+  font-size:13px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;
+  transition:opacity .2s;
+}
+.pay-submit:hover{opacity:.85;}
+.pay-success{display:none;font-size:14px;color:var(--pink);font-weight:700;text-align:center;padding:12px;}
+
+/* ─── FOOTER ─── */
+footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:center;position:relative;z-index:1;}
+.footer-social{display:flex;justify-content:center;gap:12px;margin-bottom:24px;}
+.social-link{
+  width:44px;height:44px;border-radius:12px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,105,180,.2);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .25s;text-decoration:none;
+}
+.social-link:hover{background:rgba(255,105,180,.15);border-color:rgba(255,105,180,.5);transform:translateY(-2px);}
+.social-link svg{width:20px;height:20px;}
+.footer-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:24px;}
+.ftag{
+  font-size:12px;font-weight:700;letter-spacing:.5px;
+  color:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.07);
+  padding:5px 13px;border-radius:4px;transition:all .2s;cursor:default;
+}
+.ftag:hover{color:var(--pink);border-color:rgba(255,105,180,.3);}
+.footer-contacts{
+  font-size:13px;font-weight:700;
+  color:rgba(255,255,255,.35);
+  margin-bottom:20px;letter-spacing:.3px;
+}
+.footer-contacts a{
+  color:rgba(255,255,255,.45);text-decoration:none;
+  transition:color .2s;
+}
+.footer-contacts a:hover{color:var(--pink);}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.18);letter-spacing:1px;}
+
+/* ─── MOBILE ─── */
+@media(max-width:768px){
+  nav{padding:8px 8px 8px 16px;gap:4px;}
+  .nav-links{display:none;}
+  .logo{font-size:16px;}
+  .nav-cta{padding:10px 18px;font-size:12px;}
+
+  .hero{padding:100px 16px 40px;min-height:auto;}
+  .hero h1{font-size:clamp(36px,10vw,52px);}
+
+  .pricing-section{padding:0 16px 60px;}
+  .pricing-grid{grid-template-columns:1fr;}
+
+  .footer-tags{gap:6px;}
+  .footer-social{gap:10px;}
+}
+</style>
+</head>
+<body>
+
+<div class="glitter" id="glitter"></div>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="logo-wrap">
+    <div class="logo-icon">💅</div>
+    <div class="logo">Solva Beauty</div>
+  </div>
+  <div class="nav-links">
+    <a href="index.html">Главная</a>
+    <a href="#pricing">Тарифы</a>
+  </div>
+  <a href="index.html" class="nav-cta">← Назад</a>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-center">
+    <div class="hero-pill">✦ ВЫБЕРИ ТАРИФ ✦</div>
+    <h1>ВЫБЕРИ ТАРИФ</h1>
+    <p class="hero-desc">Оплата за 30 секунд — доступ сразу после подтверждения</p>
+  </div>
+</section>
+
+<!-- ─── PRICING ─── -->
+<div class="pricing-section" id="pricing">
+  <div class="pricing-grid">
+
+    <!-- Карточка 1 — СТАРТ -->
+    <div class="p-card">
+      <div class="p-tier">СТАРТ</div>
+      <div class="p-amount">0<small> ₽</small></div>
+      <div class="p-period">навсегда бесплатно</div>
+      <div class="p-hr"></div>
+      <ul class="p-list">
+        <li>До 10 клиентов</li>
+        <li>Ручные записи в календаре</li>
+        <li class="na">Авто-напоминания клиентам</li>
+        <li class="na">Онлайн-запись по ссылке</li>
+        <li class="na">Статистика и аналитика</li>
+        <li class="na">Поддержка</li>
+      </ul>
+      <a href="https://beauty-bot-44ou.onrender.com" class="pay-btn primary" style="display:block;text-align:center;text-decoration:none;">Начать бесплатно</a>
+    </div>
+
+    <!-- Карточка 2 — ПРО -->
+    <div class="p-card featured">
+      <div class="p-hot">ХИТ</div>
+      <div class="p-tier">ПРО</div>
+      <div class="p-amount">790<small> ₽</small></div>
+      <div class="p-period">в месяц</div>
+      <div class="p-discounts">
+        6 мес — 3 990 ₽ (665 ₽/мес) · Год — 6 900 ₽ (575 ₽/мес)
+      </div>
+      <span class="saving-badge">Популярный выбор</span>
+      <div class="p-hr"></div>
+      <ul class="p-list">
+        <li>Безлимит клиентов</li>
+        <li>Авто-напоминания через Telegram</li>
+        <li>Онлайн-запись по ссылке</li>
+        <li>Статистика и аналитика</li>
+        <li>Поддержка в Telegram</li>
+      </ul>
+      <button class="pay-btn primary" onclick="togglePayment('payment-pro')">Оплатить 790 ₽</button>
+      <div class="payment-block" id="payment-pro">
+        <div class="pay-title">Как оплатить</div>
+        <p class="pay-step"><strong>Шаг 1.</strong> Переведи <strong>790 ₽</strong> по СБП</p>
+        <a href="PAYMENT_LINK_PLACEHOLDER" class="pay-link-btn">💳 Перейти к оплате</a>
+        <p class="pay-step"><strong>Шаг 2.</strong> Введи email из приложения и нажми «Я оплатил»</p>
+        <form class="pay-form" onsubmit="handlePayment(event, 'payment-pro')">
+          <input type="email" placeholder="Твой email из приложения" class="pay-input" required>
+          <button type="submit" class="pay-submit">✅ Я оплатил</button>
+        </form>
+        <div class="pay-success" id="success-pro"></div>
+      </div>
+    </div>
+
+    <!-- Карточка 3 — БИЗНЕС -->
+    <div class="p-card">
+      <div class="p-tier">БИЗНЕС</div>
+      <div class="p-amount">1 290<small> ₽</small></div>
+      <div class="p-period">в месяц</div>
+      <div class="p-hr"></div>
+      <ul class="p-list">
+        <li>Всё из тарифа Про</li>
+        <li>Личная настройка от разработчика (30 мин)</li>
+        <li>Приоритетная поддержка (ответ в течение часа)</li>
+        <li>Ранний доступ к новым функциям</li>
+      </ul>
+      <button class="pay-btn primary" onclick="togglePayment('payment-business')">Оплатить 1 290 ₽</button>
+      <div class="payment-block" id="payment-business">
+        <div class="pay-title">Как оплатить</div>
+        <p class="pay-step"><strong>Шаг 1.</strong> Переведи <strong>1 290 ₽</strong> по СБП</p>
+        <a href="PAYMENT_LINK_PLACEHOLDER" class="pay-link-btn">💳 Перейти к оплате</a>
+        <p class="pay-step"><strong>Шаг 2.</strong> Введи email из приложения и нажми «Я оплатил»</p>
+        <form class="pay-form" onsubmit="handlePayment(event, 'payment-business')">
+          <input type="email" placeholder="Твой email из приложения" class="pay-input" required>
+          <button type="submit" class="pay-submit">✅ Я оплатил</button>
+        </form>
+        <div class="pay-success" id="success-business"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-social">
+    <a href="mailto:beautybook@rambler.ru" class="social-link" aria-label="Email">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="sg3" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse"><stop stop-color="#FF69B4"/><stop offset="1" stop-color="#9370DB"/></linearGradient></defs>
+        <rect x="2" y="4" width="20" height="16" rx="3" stroke="url(#sg3)" stroke-width="1.5"/>
+        <path d="M2 8l10 7 10-7" stroke="url(#sg3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <a href="https://www.instagram.com/solvo.beauty" class="social-link" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="sg4" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse"><stop stop-color="#FF69B4"/><stop offset="1" stop-color="#9370DB"/></linearGradient></defs>
+        <rect x="2" y="2" width="20" height="20" rx="5" stroke="url(#sg4)" stroke-width="1.5"/>
+        <circle cx="12" cy="12" r="4.5" stroke="url(#sg4)" stroke-width="1.5"/>
+        <circle cx="18" cy="6" r="1.2" fill="url(#sg4)"/>
+      </svg>
+    </a>
+  </div>
+  <p class="footer-contacts">📧 <a href="mailto:beautybook@rambler.ru">beautybook@rambler.ru</a> · <a href="https://www.instagram.com/solvo.beauty">@solvo.beauty</a></p>
+  <div class="footer-tags">
+    <span class="ftag">#solvabeauty</span>
+    <span class="ftag">#маникюр</span>
+    <span class="ftag">#бровист</span>
+    <span class="ftag">#лешмейкер</span>
+    <span class="ftag">#визажист</span>
+    <span class="ftag">#записьклиентов</span>
+    <span class="ftag">#crmдлямастера</span>
+    <span class="ftag">#бизнескрасоты</span>
+    <span class="ftag">#мастеркрасоты</span>
+  </div>
+  <p class="footer-copy">© 2026 SOLVA BEAUTY · ВСЕ ПРАВА ЗАЩИЩЕНЫ</p>
+</footer>
+
+<script>
+(function(){
+  const g=document.getElementById('glitter');
+  for(let i=0;i<24;i++){
+    const s=document.createElement('div');s.className='spark';
+    const sz=Math.random()*3+2;
+    s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${Math.random()*6}s;animation-duration:${3+Math.random()*5}s;`;
+    g.appendChild(s);
+  }
+})();
+
+function togglePayment(id){
+  const block=document.getElementById(id);
+  block.classList.toggle('open');
+}
+
+async function handlePayment(e, planId){
+  e.preventDefault();
+  const form=e.target;
+  const email=form.querySelector('input').value;
+  const plan=planId==='payment-pro'?'pro':'business';
+  const successEl=document.getElementById('success-'+planId.split('-')[1]);
+
+  try{
+    const resp=await fetch('https://beauty-bot-44ou.onrender.com/api/v1/payment/notify',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email,plan}),
+    });
+    if(resp.ok){
+      successEl.textContent='✓ Получили! Активируем доступ в течение часа. Напишем в Telegram.';
+    }else{
+      successEl.textContent='✓ Спасибо! Напиши нам в Telegram @solvo_support';
+    }
+  }catch(e){
+    successEl.textContent='✓ Спасибо! Напиши нам в Telegram @solvo_support';
+  }
+  form.style.display='none';
+  successEl.style.display='block';
+}
+</script>
+</body>
+</html>
