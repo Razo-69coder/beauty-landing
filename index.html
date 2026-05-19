@@ -1103,11 +1103,18 @@ function toggleFaq(btn){
   if(!isOpen)item.classList.add('open');
 }
 
-function handleWaitlist(e){
+async function handleWaitlist(e){
   e.preventDefault();
-  const email=e.target.querySelector('input').value;
-  e.target.innerHTML='<p style="color:#FF2D78;font-weight:800;font-size:16px;">✓ Записали! Напишем когда выйдем в App Store 🍎</p>';
-  console.log('Waitlist email:',email);
+  const email = e.target.querySelector('input').value;
+  e.target.innerHTML = '<p style="color:#FF2D78;font-weight:800;font-size:16px;">⏳ Записываем...</p>';
+  try {
+    await fetch('https://beauty-bot-44ou.onrender.com/api/v1/waitlist', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email})
+    });
+  } catch(err) {}
+  e.target.innerHTML = '<p style="color:#FF2D78;font-weight:800;font-size:16px;">✓ Записали! Напишем когда выйдем в App Store 🍎</p>';
 }
 
 // Stats counter animation
