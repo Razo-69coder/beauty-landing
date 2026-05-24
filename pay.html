@@ -194,6 +194,24 @@ nav{
 .pay-submit:hover{opacity:.85;}
 .pay-success{display:none;font-size:14px;color:var(--pink);font-weight:700;text-align:center;padding:12px;}
 
+/* ─── PERIOD TABS ─── */
+.period-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.period-tab{
+  padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;
+  font-family:'Nunito',sans-serif;border:1px solid rgba(255,105,180,.2);
+  background:transparent;color:rgba(255,255,255,.5);transition:all .2s;
+}
+.period-tab:hover{border-color:rgba(255,105,180,.4);color:var(--pink);}
+.period-tab.active{background:rgba(255,105,180,.15);border-color:var(--pink);color:var(--pink);}
+
+.promo-badge{
+  display:inline-block;background:linear-gradient(135deg,#FF6B35,var(--pink));color:#fff;
+  font-size:10px;font-weight:800;letter-spacing:1px;padding:5px 12px;
+  border-radius:20px;margin-bottom:12px;text-transform:uppercase;
+}
+.promo-sub{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:12px;}
+.promo-sub strong{color:var(--pink);}
+
 /* ─── FOOTER ─── */
 footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:center;position:relative;z-index:1;}
 .footer-social{display:flex;justify-content:center;gap:12px;margin-bottom:24px;}
@@ -272,32 +290,39 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
 <div class="pricing-section" id="pricing">
   <div class="pricing-grid">
 
-    <!-- Карточка 1 — СТАРТ -->
+    <!-- Карточка 1 — СТАРТ (акция запуска) -->
     <div class="p-card">
       <div class="p-tier">СТАРТ</div>
-      <div class="p-amount">0<small> ₽</small></div>
-      <div class="p-period">навсегда бесплатно</div>
+      <div class="promo-badge">🎁 АКЦИЯ ЗАПУСКА</div>
+      <div class="p-amount">БЕСПЛАТНО</div>
+      <p class="promo-sub">Первый месяц после релиза — <strong>Pro бесплатно</strong> для новых пользователей</p>
       <div class="p-hr"></div>
       <ul class="p-list">
-        <li>До 10 клиентов</li>
-        <li>Ручные записи в календаре</li>
-        <li class="na">Авто-напоминания клиентам</li>
-        <li class="na">Онлайн-запись по ссылке</li>
-        <li class="na">Статистика и аналитика</li>
-        <li class="na">Поддержка</li>
+        <li>Безлимит клиентов</li>
+        <li>Авто-напоминания через Telegram</li>
+        <li>Онлайн-запись по ссылке</li>
+        <li>Статистика и аналитика</li>
+        <li>Поддержка в Telegram</li>
       </ul>
-      <a href="https://beauty-bot-44ou.onrender.com" class="pay-btn primary" style="display:block;text-align:center;text-decoration:none;">Начать бесплатно</a>
+      <form class="waitlist-form" onsubmit="handleWaitlist(event)">
+        <input type="email" placeholder="Твой email" class="waitlist-input" required>
+        <button type="submit" class="waitlist-submit">Начать бесплатно</button>
+      </form>
+      <div class="pay-success" id="success-start"></div>
     </div>
 
     <!-- Карточка 2 — ПРО -->
     <div class="p-card featured">
       <div class="p-hot">ХИТ</div>
       <div class="p-tier">ПРО</div>
-      <div class="p-amount">790<small> ₽</small></div>
-      <div class="p-period">в месяц</div>
-      <div class="p-discounts">
-        6 мес — 3 990 ₽ (665 ₽/мес) · Год — 6 900 ₽ (575 ₽/мес)
+      <div class="period-tabs" id="period-pro">
+        <button class="period-tab active" onclick="setPeriod('pro',0)">Месяц</button>
+        <button class="period-tab" onclick="setPeriod('pro',1)">6 месяцев</button>
+        <button class="period-tab" onclick="setPeriod('pro',2)">Год</button>
+        <button class="period-tab" onclick="setPeriod('pro',3)">2 года</button>
       </div>
+      <div class="p-amount" id="pro-amount">690<small> ₽</small></div>
+      <div class="p-period" id="pro-period">оплата ежемесячно</div>
       <span class="saving-badge">Популярный выбор</span>
       <div class="p-hr"></div>
       <ul class="p-list">
@@ -307,14 +332,15 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
         <li>Статистика и аналитика</li>
         <li>Поддержка в Telegram</li>
       </ul>
-      <button class="pay-btn primary" onclick="togglePayment('payment-pro')">Оплатить 790 ₽</button>
+      <button class="pay-btn primary" onclick="openPayment('pro')">Оплатить 690 ₽</button>
       <div class="payment-block" id="payment-pro">
-        <div class="pay-title">Как оплатить</div>
-        <p class="pay-step"><strong>Шаг 1.</strong> Переведи <strong>790 ₽</strong> по СБП</p>
-        <a href="PAYMENT_LINK_PLACEHOLDER" class="pay-link-btn">💳 Перейти к оплате</a>
+        <div class="pay-title">Оплата: <span id="pay-pro-label">Про · Месяц · 690 ₽</span></div>
+        <p class="pay-step"><strong>Шаг 1.</strong> Переведи <span id="pay-pro-amount">690 ₽</span> по СБП</p>
+        <a href="PAYMENT_LINK_PLACEHOLDER" class="pay-link-btn">💳 Перейти к оплате по СБП</a>
         <p class="pay-step"><strong>Шаг 2.</strong> Введи email из приложения и нажми «Я оплатил»</p>
-        <form class="pay-form" onsubmit="handlePayment(event, 'payment-pro')">
+        <form class="pay-form" onsubmit="handlePayment(event, 'pro')">
           <input type="email" placeholder="Твой email из приложения" class="pay-input" required>
+          <input type="hidden" id="pay-plan-pro" value="pro_1m">
           <button type="submit" class="pay-submit">✅ Я оплатил</button>
         </form>
         <div class="pay-success" id="success-pro"></div>
@@ -324,8 +350,14 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
     <!-- Карточка 3 — БИЗНЕС -->
     <div class="p-card">
       <div class="p-tier">БИЗНЕС</div>
-      <div class="p-amount">1 290<small> ₽</small></div>
-      <div class="p-period">в месяц</div>
+      <div class="period-tabs" id="period-biz">
+        <button class="period-tab active" onclick="setPeriod('biz',0)">Месяц</button>
+        <button class="period-tab" onclick="setPeriod('biz',1)">6 месяцев</button>
+        <button class="period-tab" onclick="setPeriod('biz',2)">Год</button>
+        <button class="period-tab" onclick="setPeriod('biz',3)">2 года</button>
+      </div>
+      <div class="p-amount" id="biz-amount">1 290<small> ₽</small></div>
+      <div class="p-period" id="biz-period">оплата ежемесячно</div>
       <div class="p-hr"></div>
       <ul class="p-list">
         <li>Всё из тарифа Про</li>
@@ -333,17 +365,18 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
         <li>Приоритетная поддержка (ответ в течение часа)</li>
         <li>Ранний доступ к новым функциям</li>
       </ul>
-      <button class="pay-btn primary" onclick="togglePayment('payment-business')">Оплатить 1 290 ₽</button>
-      <div class="payment-block" id="payment-business">
-        <div class="pay-title">Как оплатить</div>
-        <p class="pay-step"><strong>Шаг 1.</strong> Переведи <strong>1 290 ₽</strong> по СБП</p>
-        <a href="PAYMENT_LINK_PLACEHOLDER" class="pay-link-btn">💳 Перейти к оплате</a>
+      <button class="pay-btn primary" onclick="openPayment('biz')">Оплатить 1 290 ₽</button>
+      <div class="payment-block" id="payment-biz">
+        <div class="pay-title">Оплата: <span id="pay-biz-label">Бизнес · Месяц · 1 290 ₽</span></div>
+        <p class="pay-step"><strong>Шаг 1.</strong> Переведи <span id="pay-biz-amount">1 290 ₽</span> по СБП</p>
+        <a href="PAYMENT_LINK_PLACEHOLDER" class="pay-link-btn">💳 Перейти к оплате по СБП</a>
         <p class="pay-step"><strong>Шаг 2.</strong> Введи email из приложения и нажми «Я оплатил»</p>
-        <form class="pay-form" onsubmit="handlePayment(event, 'payment-business')">
+        <form class="pay-form" onsubmit="handlePayment(event, 'biz')">
           <input type="email" placeholder="Твой email из приложения" class="pay-input" required>
+          <input type="hidden" id="pay-plan-biz" value="biz_1m">
           <button type="submit" class="pay-submit">✅ Я оплатил</button>
         </form>
-        <div class="pay-success" id="success-business"></div>
+        <div class="pay-success" id="success-biz"></div>
       </div>
     </div>
 
@@ -395,34 +428,75 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
   }
 })();
 
-function togglePayment(id){
-  const block=document.getElementById(id);
+const proPrices = [
+  {amount:'690<span class="small"> ₽</span>',period:'оплата ежемесячно',btn:'690 ₽',plan:'pro_1m',label:'Про · Месяц · 690 ₽'},
+  {amount:'3 490<span class="small"> ₽</span>',period:'582 ₽/мес · экономия 650 ₽',btn:'3 490 ₽',plan:'pro_6m',label:'Про · 6 месяцев · 3 490 ₽'},
+  {amount:'5 990<span class="small"> ₽</span>',period:'499 ₽/мес · экономия 2 290 ₽',btn:'5 990 ₽',plan:'pro_1y',label:'Про · Год · 5 990 ₽'},
+  {amount:'9 990<span class="small"> ₽</span>',period:'416 ₽/мес · экономия 6 570 ₽',btn:'9 990 ₽',plan:'pro_2y',label:'Про · 2 года · 9 990 ₽'},
+];
+
+const bizPrices = [
+  {amount:'1 290<span class="small"> ₽</span>',period:'оплата ежемесячно',btn:'1 290 ₽',plan:'biz_1m',label:'Бизнес · Месяц · 1 290 ₽'},
+  {amount:'6 490<span class="small"> ₽</span>',period:'1 082 ₽/мес · экономия 1 250 ₽',btn:'6 490 ₽',plan:'biz_6m',label:'Бизнес · 6 месяцев · 6 490 ₽'},
+  {amount:'11 200<span class="small"> ₽</span>',period:'933 ₽/мес · экономия 4 280 ₽',btn:'11 200 ₽',plan:'biz_1y',label:'Бизнес · Год · 11 200 ₽'},
+  {amount:'18 900<span class="small"> ₽</span>',period:'788 ₽/мес · экономия 12 060 ₽',btn:'18 900 ₽',plan:'biz_2y',label:'Бизнес · 2 года · 18 900 ₽'},
+];
+
+function setPeriod(tier, idx){
+  const prices = tier === 'pro' ? proPrices : bizPrices;
+  const p = prices[idx];
+  document.getElementById(tier+'-amount').innerHTML = p.amount;
+  document.getElementById(tier+'-period').textContent = p.period;
+  document.getElementById('pay-'+tier+'-amount').textContent = p.btn;
+  document.getElementById('pay-'+tier+'-label').textContent = p.label;
+  document.getElementById('pay-plan-'+tier).value = p.plan;
+  const tabs = document.getElementById('period-'+tier).querySelectorAll('.period-tab');
+  tabs.forEach((t,i)=>t.classList.toggle('active',i===idx));
+  const btns = document.querySelectorAll('.pay-btn.primary');
+  btns.forEach(b=>{
+    if(b.closest('.p-card') && b.closest('.p-card').querySelector('#period-'+tier)){
+      b.innerHTML = 'Оплатить '+p.btn;
+    }
+  });
+}
+
+function openPayment(tier){
+  const block = document.getElementById('payment-'+tier);
   block.classList.toggle('open');
 }
 
-async function handlePayment(e, planId){
+async function handleWaitlist(e){
   e.preventDefault();
-  const form=e.target;
-  const email=form.querySelector('input').value;
-  const plan=planId==='payment-pro'?'pro':'business';
-  const successEl=document.getElementById('success-'+planId.split('-')[1]);
+  const email = e.target.querySelector('input').value;
+  e.target.innerHTML = '<p style="color:#FF2D78;font-weight:800;font-size:16px;">⏳ Записываем...</p>';
+  try {
+    await fetch('https://beauty-bot-44ou.onrender.com/api/v1/waitlist', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email})
+    });
+  } catch(err) {}
+  e.target.innerHTML = '<p style="color:#FF2D78;font-weight:800;font-size:16px;">✓ Записали! Напишем при запуске.</p>';
+}
+
+async function handlePayment(e, tier){
+  e.preventDefault();
+  const form = e.target;
+  const email = form.querySelector('input[type="email"]').value;
+  const plan = document.getElementById('pay-plan-'+tier).value;
+  const successEl = document.getElementById('success-'+tier);
 
   try{
-    const resp=await fetch('https://beauty-bot-44ou.onrender.com/api/v1/payment/notify',{
+    const resp = await fetch('https://beauty-bot-44ou.onrender.com/api/v1/payment/notify',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({email,plan}),
     });
-    if(resp.ok){
-      successEl.textContent='✓ Получили! Активируем доступ в течение часа. Напишем в Telegram.';
-    }else{
-      successEl.textContent='✓ Спасибо! Напиши нам в Telegram @solvo_support';
-    }
-  }catch(e){
-    successEl.textContent='✓ Спасибо! Напиши нам в Telegram @solvo_support';
-  }
-  form.style.display='none';
-  successEl.style.display='block';
+  }catch(err){}
+
+  form.style.display = 'none';
+  successEl.textContent = '✓ Получили! Активируем доступ в течение часа.';
+  successEl.style.display = 'block';
 }
 </script>
 </body>
