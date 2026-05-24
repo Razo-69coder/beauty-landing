@@ -616,9 +616,9 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
     <a href="#pricing">Цены</a>
     <a href="#cta">Попробовать</a>
   </div>
-  <button class="nav-cta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">
-    Получить первой 🍎
-  </button>
+  <a href="#app-store" class="nav-cta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'});return false;">
+    Скачать 🍎
+  </a>
 </nav>
 
 <!-- ─── HERO ─── -->
@@ -653,10 +653,8 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
     </h1>
     <p class="hero-tagline">Клиенты сами идут к тебе</p>
     <p class="hero-desc">Нативное iOS-приложение для мастеров красоты. Записи, клиенты, аналитика — всё в одном месте.</p>
-    <form class="waitlist-form" onsubmit="handleWaitlist(event)">
-      <input type="email" placeholder="Твой email" class="waitlist-input" required>
-      <button type="submit" class="btn-glow">🍎 Получить первой</button>
-    </form>
+    <a href="APP_STORE_LINK" class="btn-glow" style="text-decoration:none;">🍎 Скачать в App Store</a>
+    <p style="font-size:13px;color:rgba(255,255,255,.4);margin-top:12px;font-weight:700;">Первый месяц Pro бесплатно · Только iOS</p>
     <div class="hero-for">
       <span class="for-tag">💅 Мастера маникюра</span>
       <span class="for-tag">🎨 Бровистки</span>
@@ -839,10 +837,7 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
         <div class="mstat"><span class="mstat-n">5★</span><span class="mstat-l">Рейтинг</span></div>
         <div class="mstat"><span class="mstat-n" data-target="3" data-prefix="-" data-suffix="ч">-3ч</span><span class="mstat-l">Время на рутину</span></div>
       </div>
-      <form class="waitlist-form" onsubmit="handleWaitlist(event)">
-        <input type="email" placeholder="Твой email" class="waitlist-input" required>
-        <button type="submit" class="btn-glow">🍎 Получить первой</button>
-      </form>
+      <a href="APP_STORE_LINK" class="btn-glow" style="text-decoration:none;display:inline-block;">🍎 Скачать в App Store</a>
     </div>
     <div class="mid-doll-wrap">
       <div class="mid-doll-glow"></div>
@@ -860,32 +855,28 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
 
     <div class="p-card">
       <div class="p-tier">СТАРТ</div>
-      <div class="p-amount">0<small> ₽</small></div>
-      <div class="p-period">навсегда бесплатно</div>
+      <div class="p-amount" style="background:linear-gradient(90deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:38px;">БЕСПЛАТНО</div>
+      <div class="p-period">первые 30 дней Pro в подарок</div>
       <div class="p-hr"></div>
       <ul class="p-list">
-        <li>До 10 клиентов</li>
-        <li>Ручные записи в календаре</li>
-        <li style="color:rgba(255,255,255,.25);">❌ Авто-напоминания клиентам</li>
-        <li style="color:rgba(255,255,255,.25);">❌ Онлайн-запись по ссылке</li>
-        <li style="color:rgba(255,255,255,.25);">❌ Статистика и аналитика</li>
-        <li style="color:rgba(255,255,255,.25);">❌ Поддержка</li>
+        <li>Безлимит клиентов (30 дней)</li>
+        <li>Авто-напоминания через Telegram</li>
+        <li>Онлайн-запись по ссылке</li>
+        <li>Статистика и аналитика</li>
+        <li>Поддержка в Telegram</li>
       </ul>
-      <form class="waitlist-form" onsubmit="handleWaitlist(event)">
-        <input type="email" placeholder="Твой email" class="waitlist-input" required>
-        <button type="submit" class="btn-glow">Начать бесплатно</button>
-      </form>
+      <a href="APP_STORE_LINK" class="btn-glow" style="display:block;text-align:center;text-decoration:none;padding:14px;border-radius:8px;font-size:13px;letter-spacing:1px;">🍎 Скачать бесплатно</a>
     </div>
 
     <div class="p-card featured">
       <div class="p-hot">ХИТ</div>
       <div class="p-tier">ПРО</div>
-      <div class="p-amount">790<small> ₽</small></div>
+      <div class="p-amount">690<small> ₽</small></div>
       <div class="p-period">в месяц</div>
       <div style="font-size:12px;color:var(--pink);font-weight:700;margin-bottom:8px;line-height:1.7;">
-        6 месяцев — 3 990 ₽ (665 ₽/мес, −15%)<br>
-        Год — 6 900 ₽ (575 ₽/мес, −27%)<br>
-        2 года — 11 900 ₽ (496 ₽/мес, −37%)
+        6 месяцев — 3 490 ₽ (582 ₽/мес, −16%)<br>
+        Год — 5 990 ₽ (499 ₽/мес, −28%)<br>
+        2 года — 9 990 ₽ (416 ₽/мес, −40%)
       </div>
       <span class="saving-badge">Популярный выбор</span>
       <div class="p-hr"></div>
@@ -1002,10 +993,10 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
 
     <div class="faq-item">
       <button class="faq-q" onclick="toggleFaq(this)">
-        Когда приложение появится в App Store?
+        Как скачать приложение?
         <span class="faq-arrow">▼</span>
       </button>
-      <div class="faq-a">Мы активно работаем над финальной версией. Оставь email — напишем тебе первой, как только выйдем.</div>
+      <div class="faq-a">Solva Beauty доступна в App Store. Скачай бесплатно — первый месяц Pro в подарок автоматически после регистрации.</div>
     </div>
 
     <div class="faq-item">
@@ -1038,14 +1029,11 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
 <!-- ─── FINAL CTA ─── -->
 <div class="final-cta" id="cta">
   <div class="cta-inner">
-    <div class="cta-tag">СКОРО В APP STORE</div>
+    <div class="cta-tag">ДОСТУПНО В APP STORE</div>
     <h2 class="cta-h">ГОТОВА РАБОТАТЬ<br><span>БЕЗ ХАОСА?</span></h2>
-    <p class="cta-sub">Оставь email — напишем первой, когда Solva Beauty появится в App Store.</p>
-    <form class="waitlist-form" onsubmit="handleWaitlist(event)">
-      <input type="email" placeholder="Твой email" class="waitlist-input" required>
-      <button type="submit" class="btn-glow">🍎 Получить первой</button>
-    </form>
-    <p class="cta-small">Бесплатно · Без спама · Напишем первыми</p>
+    <p class="cta-sub">Скачай Solva Beauty и получи первый месяц Pro бесплатно.</p>
+    <a href="APP_STORE_LINK" class="btn-glow" style="text-decoration:none;display:inline-block;">🍎 Скачать в App Store</a>
+    <p class="cta-small">Бесплатно · Только iOS · Первый месяц Pro в подарок</p>
   </div>
 </div>
 
@@ -1108,19 +1096,7 @@ function toggleFaq(btn){
   if(!isOpen)item.classList.add('open');
 }
 
-async function handleWaitlist(e){
-  e.preventDefault();
-  const email = e.target.querySelector('input').value;
-  e.target.innerHTML = '<p style="color:#FF2D78;font-weight:800;font-size:16px;">⏳ Записываем...</p>';
-  try {
-    await fetch('https://beauty-bot-44ou.onrender.com/api/v1/waitlist', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({email})
-    });
-  } catch(err) {}
-  e.target.innerHTML = '<p style="color:#FF2D78;font-weight:800;font-size:16px;">✓ Записали! Напишем когда выйдем в App Store 🍎</p>';
-}
+// waitlist removed — app is live in App Store
 
 // Stats counter animation
 (function(){

@@ -321,9 +321,9 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
     <!-- Карточка 1 — СТАРТ (акция запуска) -->
     <div class="p-card">
       <div class="p-tier">СТАРТ</div>
-      <div class="promo-badge">🎁 АКЦИЯ ЗАПУСКА</div>
+      <div class="promo-badge">🎁 ПЕРВЫЙ МЕСЯЦ В ПОДАРОК</div>
       <div class="start-free">БЕСПЛАТНО</div>
-      <p class="promo-sub">Первый месяц после релиза — <strong>Pro бесплатно</strong> для новых пользователей</p>
+      <p class="promo-sub">Скачай приложение — <strong>30 дней Pro бесплатно</strong> для каждого нового пользователя</p>
       <div class="p-hr"></div>
       <ul class="p-list">
         <li>Безлимит клиентов</li>
@@ -332,11 +332,7 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
         <li>Статистика и аналитика</li>
         <li>Поддержка в Telegram</li>
       </ul>
-      <form class="waitlist-form" onsubmit="handleWaitlist(event)">
-        <input type="email" placeholder="Твой email" class="waitlist-input" required>
-        <button type="submit" class="waitlist-submit">Начать бесплатно</button>
-      </form>
-      <div class="pay-success" id="success-start"></div>
+      <a href="APP_STORE_LINK" class="pay-btn primary" style="text-decoration:none;display:block;text-align:center;">🍎 Скачать бесплатно</a>
     </div>
 
     <!-- Карточка 2 — ПРО -->
@@ -493,19 +489,7 @@ function openPayment(tier){
   block.classList.toggle('open');
 }
 
-async function handleWaitlist(e){
-  e.preventDefault();
-  const email = e.target.querySelector('input').value;
-  e.target.innerHTML = '<p style="color:#FF2D78;font-weight:800;font-size:16px;">⏳ Записываем...</p>';
-  try {
-    await fetch('https://beauty-bot-44ou.onrender.com/api/v1/waitlist', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({email})
-    });
-  } catch(err) {}
-  e.target.innerHTML = '<p style="color:#FF2D78;font-weight:800;font-size:16px;">✓ Записали! Напишем при запуске.</p>';
-}
+// waitlist removed — app is live in App Store
 
 async function handlePayment(e, tier){
   e.preventDefault();
