@@ -195,14 +195,42 @@ nav{
 .pay-success{display:none;font-size:14px;color:var(--pink);font-weight:700;text-align:center;padding:12px;}
 
 /* ─── PERIOD TABS ─── */
-.period-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.period-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:16px;}
 .period-tab{
-  padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;
+  padding:8px 10px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;
   font-family:'Nunito',sans-serif;border:1px solid rgba(255,105,180,.2);
-  background:transparent;color:rgba(255,255,255,.5);transition:all .2s;
+  background:transparent;color:rgba(255,255,255,.5);transition:all .2s;text-align:center;
 }
 .period-tab:hover{border-color:rgba(255,105,180,.4);color:var(--pink);}
 .period-tab.active{background:rgba(255,105,180,.15);border-color:var(--pink);color:var(--pink);}
+
+/* ─── WAITLIST FORM ─── */
+.waitlist-form{display:flex;flex-direction:column;gap:10px;margin-top:auto;padding-top:8px;}
+.waitlist-input{
+  padding:13px 16px;border-radius:10px;
+  border:1.5px solid rgba(255,105,180,.3);
+  background:rgba(255,255,255,.05);
+  color:#fff;font-size:14px;font-family:'Nunito',sans-serif;
+  outline:none;transition:border-color .2s;
+}
+.waitlist-input:focus{border-color:var(--pink);}
+.waitlist-input::placeholder{color:rgba(255,255,255,.35);}
+.waitlist-submit{
+  padding:13px;border-radius:10px;border:none;
+  background:linear-gradient(135deg,var(--pink),var(--purple));
+  color:#fff;font-size:13px;font-weight:800;cursor:pointer;
+  font-family:'Nunito',sans-serif;letter-spacing:.5px;
+  transition:opacity .2s;
+}
+.waitlist-submit:hover{opacity:.85;}
+
+/* ─── START AMOUNT ─── */
+.start-free{
+  font-family:'Black Han Sans',sans-serif;
+  font-size:38px;line-height:1;margin-bottom:4px;
+  background:linear-gradient(90deg,var(--pink),var(--purple));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
 
 .promo-badge{
   display:inline-block;background:linear-gradient(135deg,#FF6B35,var(--pink));color:#fff;
@@ -294,7 +322,7 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
     <div class="p-card">
       <div class="p-tier">СТАРТ</div>
       <div class="promo-badge">🎁 АКЦИЯ ЗАПУСКА</div>
-      <div class="p-amount">БЕСПЛАТНО</div>
+      <div class="start-free">БЕСПЛАТНО</div>
       <p class="promo-sub">Первый месяц после релиза — <strong>Pro бесплатно</strong> для новых пользователей</p>
       <div class="p-hr"></div>
       <ul class="p-list">
@@ -316,9 +344,9 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
       <div class="p-hot">ХИТ</div>
       <div class="p-tier">ПРО</div>
       <div class="period-tabs" id="period-pro">
-        <button class="period-tab active" onclick="setPeriod('pro',0)">Месяц</button>
+        <button class="period-tab active" onclick="setPeriod('pro',0)">1 месяц</button>
         <button class="period-tab" onclick="setPeriod('pro',1)">6 месяцев</button>
-        <button class="period-tab" onclick="setPeriod('pro',2)">Год</button>
+        <button class="period-tab" onclick="setPeriod('pro',2)">1 год</button>
         <button class="period-tab" onclick="setPeriod('pro',3)">2 года</button>
       </div>
       <div class="p-amount" id="pro-amount">690<small> ₽</small></div>
@@ -351,9 +379,9 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
     <div class="p-card">
       <div class="p-tier">БИЗНЕС</div>
       <div class="period-tabs" id="period-biz">
-        <button class="period-tab active" onclick="setPeriod('biz',0)">Месяц</button>
+        <button class="period-tab active" onclick="setPeriod('biz',0)">1 месяц</button>
         <button class="period-tab" onclick="setPeriod('biz',1)">6 месяцев</button>
-        <button class="period-tab" onclick="setPeriod('biz',2)">Год</button>
+        <button class="period-tab" onclick="setPeriod('biz',2)">1 год</button>
         <button class="period-tab" onclick="setPeriod('biz',3)">2 года</button>
       </div>
       <div class="p-amount" id="biz-amount">1 290<small> ₽</small></div>
