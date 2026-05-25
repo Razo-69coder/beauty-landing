@@ -160,39 +160,66 @@ nav{
 .pay-btn.primary:hover{transform:scale(1.02);opacity:.9;}
 .pay-btn:hover:not(.primary){background:rgba(255,255,255,.1);color:var(--pink);border-color:rgba(255,105,180,.3);}
 
-/* ─── PAYMENT BLOCK ─── */
-.payment-block{
-  display:none;margin-top:16px;
-  background:rgba(255,255,255,.04);border:1px solid rgba(255,105,180,.2);
-  border-radius:12px;padding:20px;
+/* ─── LOGIN MODAL ─── */
+.modal-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);
+  z-index:1000;align-items:center;justify-content:center;padding:20px;
 }
-.payment-block.open{display:block;}
-.pay-title{font-size:13px;font-weight:800;color:var(--pink);margin-bottom:12px;letter-spacing:1px;text-transform:uppercase;}
-.pay-step{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:8px;line-height:1.6;}
-.pay-step strong{color:var(--white);}
-.pay-link-btn{
-  display:block;width:100%;padding:12px;border-radius:8px;margin:10px 0 16px;
-  background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;border:none;
-  font-size:13px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;
-  text-align:center;text-decoration:none;transition:opacity .2s;
+.modal-overlay.open{display:flex;}
+.modal{
+  background:linear-gradient(160deg,#1e0030,#130820);
+  border:1px solid rgba(255,105,180,.35);border-radius:20px;
+  padding:32px 28px;max-width:400px;width:100%;position:relative;
 }
-.pay-link-btn:hover{opacity:.85;}
-.pay-form{display:flex;flex-direction:column;gap:10px;}
-.pay-input{
-  padding:12px 16px;border-radius:8px;border:1.5px solid rgba(255,105,180,.4);
+.modal-close{
+  position:absolute;top:16px;right:16px;background:none;border:none;
+  color:rgba(255,255,255,.4);font-size:22px;cursor:pointer;line-height:1;
+}
+.modal-close:hover{color:var(--pink);}
+.modal-title{font-family:'Black Han Sans',sans-serif;font-size:22px;margin-bottom:6px;}
+.modal-sub{font-size:13px;color:rgba(255,255,255,.5);margin-bottom:20px;line-height:1.5;}
+.modal-plan-badge{
+  display:inline-block;background:rgba(255,105,180,.12);border:1px solid rgba(255,105,180,.35);
+  color:var(--pink);font-size:12px;font-weight:800;padding:5px 14px;
+  border-radius:20px;margin-bottom:20px;letter-spacing:.5px;
+}
+.modal-form{display:flex;flex-direction:column;gap:12px;}
+.modal-input{
+  padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,105,180,.3);
   background:rgba(255,255,255,.05);color:#fff;font-size:14px;
   font-family:'Nunito',sans-serif;outline:none;transition:border-color .2s;
 }
-.pay-input:focus{border-color:var(--pink);}
-.pay-input::placeholder{color:rgba(255,255,255,.35);}
-.pay-submit{
-  padding:12px;border-radius:8px;border:none;
+.modal-input:focus{border-color:var(--pink);}
+.modal-input::placeholder{color:rgba(255,255,255,.35);}
+.modal-submit{
+  padding:14px;border-radius:10px;border:none;
   background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;
-  font-size:13px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;
-  transition:opacity .2s;
+  font-size:14px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;
+  transition:opacity .2s;letter-spacing:.5px;
 }
-.pay-submit:hover{opacity:.85;}
-.pay-success{display:none;font-size:14px;color:var(--pink);font-weight:700;text-align:center;padding:12px;}
+.modal-submit:hover{opacity:.85;}
+.modal-submit:disabled{opacity:.5;cursor:not-allowed;}
+.modal-err{font-size:13px;color:#ff6b6b;text-align:center;display:none;}
+.modal-no-account{
+  text-align:center;margin-top:16px;padding-top:16px;
+  border-top:1px solid rgba(255,255,255,.07);
+}
+.modal-no-account button{
+  background:none;border:none;color:rgba(255,255,255,.4);font-size:13px;
+  cursor:pointer;font-family:'Nunito',sans-serif;text-decoration:underline;
+}
+.modal-no-account button:hover{color:var(--pink);}
+.modal-hint{
+  display:none;font-size:13px;color:rgba(255,255,255,.5);
+  text-align:center;line-height:1.7;margin-top:12px;
+}
+.modal-hint a{
+  color:var(--pink);font-weight:800;text-decoration:none;
+}
+.modal-success{
+  display:none;text-align:center;padding:12px 0;
+}
+.modal-success p{font-size:15px;font-weight:700;color:var(--pink);}
 
 /* ─── PERIOD TABS ─── */
 .period-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:16px;}
@@ -356,19 +383,7 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
         <li>Статистика и аналитика</li>
         <li>Поддержка в Telegram</li>
       </ul>
-      <button class="pay-btn primary" onclick="openPayment('pro')">Оплатить 690 ₽</button>
-      <div class="payment-block" id="payment-pro">
-        <div class="pay-title">Оплата: <span id="pay-pro-label">Про · Месяц · 690 ₽</span></div>
-        <p class="pay-step"><strong>Шаг 1.</strong> Переведи <span id="pay-pro-amount">690 ₽</span> по СБП</p>
-        <a href="PAYMENT_LINK_PLACEHOLDER" class="pay-link-btn">💳 Перейти к оплате по СБП</a>
-        <p class="pay-step"><strong>Шаг 2.</strong> Введи email из приложения и нажми «Я оплатил»</p>
-        <form class="pay-form" onsubmit="handlePayment(event, 'pro')">
-          <input type="email" placeholder="Твой email из приложения" class="pay-input" required>
-          <input type="hidden" id="pay-plan-pro" value="pro_1m">
-          <button type="submit" class="pay-submit">✅ Я оплатил</button>
-        </form>
-        <div class="pay-success" id="success-pro"></div>
-      </div>
+      <button class="pay-btn primary" id="btn-pro" onclick="openModal('pro')">Оплатить 690 ₽</button>
     </div>
 
     <!-- Карточка 3 — БИЗНЕС -->
@@ -389,21 +404,40 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
         <li>Приоритетная поддержка (ответ в течение часа)</li>
         <li>Ранний доступ к новым функциям</li>
       </ul>
-      <button class="pay-btn primary" onclick="openPayment('biz')">Оплатить 1 290 ₽</button>
-      <div class="payment-block" id="payment-biz">
-        <div class="pay-title">Оплата: <span id="pay-biz-label">Бизнес · Месяц · 1 290 ₽</span></div>
-        <p class="pay-step"><strong>Шаг 1.</strong> Переведи <span id="pay-biz-amount">1 290 ₽</span> по СБП</p>
-        <a href="PAYMENT_LINK_PLACEHOLDER" class="pay-link-btn">💳 Перейти к оплате по СБП</a>
-        <p class="pay-step"><strong>Шаг 2.</strong> Введи email из приложения и нажми «Я оплатил»</p>
-        <form class="pay-form" onsubmit="handlePayment(event, 'biz')">
-          <input type="email" placeholder="Твой email из приложения" class="pay-input" required>
-          <input type="hidden" id="pay-plan-biz" value="biz_1m">
-          <button type="submit" class="pay-submit">✅ Я оплатил</button>
-        </form>
-        <div class="pay-success" id="success-biz"></div>
+      <button class="pay-btn primary" id="btn-biz" onclick="openModal('biz')">Оплатить 1 290 ₽</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ─── LOGIN MODAL ─── -->
+<div class="modal-overlay" id="loginModal" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-title">Войти в аккаунт</div>
+    <p class="modal-sub">Введите данные от приложения Solvo Beauty</p>
+    <div class="modal-plan-badge" id="modal-plan-badge">Про · Месяц · 690 ₽</div>
+
+    <div id="modal-form-wrap">
+      <form class="modal-form" onsubmit="submitPayment(event)">
+        <input type="hidden" id="modal-plan" value="pro_1m">
+        <input type="email" id="modal-email" class="modal-input" placeholder="Email" required autocomplete="email">
+        <input type="password" id="modal-pass" class="modal-input" placeholder="Пароль" required autocomplete="current-password">
+        <p class="modal-err" id="modal-err"></p>
+        <button type="submit" class="modal-submit" id="modal-submit-btn">Оплатить</button>
+      </form>
+      <div class="modal-no-account">
+        <button onclick="showNoAccountHint()">У меня нет аккаунта</button>
+        <div class="modal-hint" id="modal-hint">
+          Скачайте приложение и зарегистрируйтесь — оплатить можно как в приложении, так и на сайте.<br><br>
+          <a href="APP_STORE_LINK">🍎 Скачать Solvo Beauty</a>
+        </div>
       </div>
     </div>
 
+    <div class="modal-success" id="modal-success">
+      <p>Переходим к оплате...</p>
+    </div>
   </div>
 </div>
 
@@ -476,39 +510,77 @@ function setPeriod(tier, idx){
   document.getElementById('pay-plan-'+tier).value = p.plan;
   const tabs = document.getElementById('period-'+tier).querySelectorAll('.period-tab');
   tabs.forEach((t,i)=>t.classList.toggle('active',i===idx));
-  const btns = document.querySelectorAll('.pay-btn.primary');
-  btns.forEach(b=>{
-    if(b.closest('.p-card') && b.closest('.p-card').querySelector('#period-'+tier)){
-      b.innerHTML = 'Оплатить '+p.btn;
-    }
-  });
+  const btn = document.getElementById('btn-'+tier);
+  if(btn) btn.textContent = 'Оплатить ' + p.btn;
 }
 
-function openPayment(tier){
-  const block = document.getElementById('payment-'+tier);
-  block.classList.toggle('open');
+let currentTier = 'pro';
+
+function openModal(tier){
+  currentTier = tier;
+  const prices = tier === 'pro' ? proPrices : bizPrices;
+  const idx = [...document.getElementById('period-'+tier).querySelectorAll('.period-tab')].findIndex(t=>t.classList.contains('active'));
+  const p = prices[idx >= 0 ? idx : 0];
+  document.getElementById('modal-plan').value = p.plan;
+  document.getElementById('modal-plan-badge').textContent = p.label;
+  document.getElementById('modal-submit-btn').textContent = 'Оплатить ' + p.btn;
+  document.getElementById('modal-err').style.display = 'none';
+  document.getElementById('modal-hint').style.display = 'none';
+  document.getElementById('modal-form-wrap').style.display = 'block';
+  document.getElementById('modal-success').style.display = 'none';
+  document.getElementById('modal-email').value = '';
+  document.getElementById('modal-pass').value = '';
+  document.getElementById('loginModal').classList.add('open');
 }
 
-// waitlist removed — app is live in App Store
+function closeModal(){
+  document.getElementById('loginModal').classList.remove('open');
+}
 
-async function handlePayment(e, tier){
+function closeModalOutside(e){
+  if(e.target === document.getElementById('loginModal')) closeModal();
+}
+
+function showNoAccountHint(){
+  const hint = document.getElementById('modal-hint');
+  hint.style.display = hint.style.display === 'block' ? 'none' : 'block';
+}
+
+async function submitPayment(e){
   e.preventDefault();
-  const form = e.target;
-  const email = form.querySelector('input[type="email"]').value;
-  const plan = document.getElementById('pay-plan-'+tier).value;
-  const successEl = document.getElementById('success-'+tier);
+  const btn = document.getElementById('modal-submit-btn');
+  const errEl = document.getElementById('modal-err');
+  const email = document.getElementById('modal-email').value;
+  const password = document.getElementById('modal-pass').value;
+  const plan = document.getElementById('modal-plan').value;
+
+  btn.disabled = true;
+  btn.textContent = 'Проверяем...';
+  errEl.style.display = 'none';
 
   try{
-    const resp = await fetch('https://beauty-bot-44ou.onrender.com/api/v1/payment/notify',{
+    const resp = await fetch('https://beauty-bot-44ou.onrender.com/api/v1/payment/create-web',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({email,plan}),
+      body:JSON.stringify({email, password, plan}),
     });
-  }catch(err){}
-
-  form.style.display = 'none';
-  successEl.textContent = '✓ Получили! Активируем доступ в течение часа.';
-  successEl.style.display = 'block';
+    const data = await resp.json();
+    if(!resp.ok){
+      errEl.textContent = data.detail || 'Неверный email или пароль';
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Оплатить';
+      return;
+    }
+    document.getElementById('modal-form-wrap').style.display = 'none';
+    document.getElementById('modal-success').style.display = 'block';
+    setTimeout(()=>{ window.location.href = data.confirmation_url; }, 800);
+  }catch(err){
+    errEl.textContent = 'Ошибка соединения. Попробуйте ещё раз.';
+    errEl.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Оплатить';
+  }
 }
 </script>
 </body>
