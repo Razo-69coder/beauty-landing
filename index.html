@@ -515,6 +515,16 @@ nav{
 .stat-label{font-size:16px;font-weight:700;color:rgba(255,255,255,.6);line-height:1.4;}
 .stat-sub{font-size:12px;color:rgba(255,255,255,.3);margin-top:5px;font-weight:600;letter-spacing:.5px;}
 
+/* ─── PERIOD TABS ─── */
+.period-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:16px;}
+.period-tab{
+  padding:8px 10px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;
+  font-family:'Nunito',sans-serif;border:1px solid rgba(255,105,180,.2);
+  background:transparent;color:rgba(255,255,255,.5);transition:all .2s;text-align:center;
+}
+.period-tab:hover{border-color:rgba(255,105,180,.4);color:var(--pink);}
+.period-tab.active{background:rgba(255,105,180,.15);border-color:var(--pink);color:var(--pink);}
+
 /* ─── MOBILE ─── */
 @media(max-width:768px){
   nav{padding:8px 8px 8px 16px;gap:4px;}
@@ -871,13 +881,14 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
     <div class="p-card featured">
       <div class="p-hot">ХИТ</div>
       <div class="p-tier">ПРО</div>
-      <div class="p-amount">690<small> ₽</small></div>
-      <div class="p-period">в месяц</div>
-      <div style="font-size:12px;color:var(--pink);font-weight:700;margin-bottom:8px;line-height:1.7;">
-        6 месяцев — 3 490 ₽ (582 ₽/мес, −16%)<br>
-        Год — 5 990 ₽ (499 ₽/мес, −28%)<br>
-        2 года — 9 990 ₽ (416 ₽/мес, −40%)
+      <div class="period-tabs" id="idx-period-pro">
+        <button class="period-tab active" onclick="setIdxPeriod('pro',0)">1 месяц</button>
+        <button class="period-tab" onclick="setIdxPeriod('pro',1)">6 месяцев</button>
+        <button class="period-tab" onclick="setIdxPeriod('pro',2)">1 год</button>
+        <button class="period-tab" onclick="setIdxPeriod('pro',3)">2 года</button>
       </div>
+      <div class="p-amount" id="idx-pro-amount">690<small> ₽</small></div>
+      <div class="p-period" id="idx-pro-period">оплата ежемесячно</div>
       <span class="saving-badge">Популярный выбор</span>
       <div class="p-hr"></div>
       <ul class="p-list">
@@ -887,13 +898,19 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
         <li>Статистика и аналитика</li>
         <li>Поддержка в Telegram</li>
       </ul>
-      <a href="/pay.html" class="btn-glow" style="display:block;text-align:center;text-decoration:none;padding:14px;border-radius:8px;font-size:13px;letter-spacing:1px;box-shadow:0 8px 24px rgba(255,105,180,.25);">💳 Оплатить</a>
+      <a id="idx-btn-pro" href="/pay.html?plan=pro_1m" class="btn-glow" style="display:block;text-align:center;text-decoration:none;padding:14px;border-radius:8px;font-size:13px;letter-spacing:1px;box-shadow:0 8px 24px rgba(255,105,180,.25);">💳 Оплатить 690 ₽</a>
     </div>
 
     <div class="p-card">
       <div class="p-tier">БИЗНЕС</div>
-      <div class="p-amount">1 290<small> ₽</small></div>
-      <div class="p-period">в месяц</div>
+      <div class="period-tabs" id="idx-period-biz">
+        <button class="period-tab active" onclick="setIdxPeriod('biz',0)">1 месяц</button>
+        <button class="period-tab" onclick="setIdxPeriod('biz',1)">6 месяцев</button>
+        <button class="period-tab" onclick="setIdxPeriod('biz',2)">1 год</button>
+        <button class="period-tab" onclick="setIdxPeriod('biz',3)">2 года</button>
+      </div>
+      <div class="p-amount" id="idx-biz-amount">1 290<small> ₽</small></div>
+      <div class="p-period" id="idx-biz-period">оплата ежемесячно</div>
       <div class="p-hr"></div>
       <ul class="p-list">
         <li>Всё из тарифа Про</li>
@@ -901,7 +918,7 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
         <li>Приоритетная поддержка (ответ в течение часа)</li>
         <li>Ранний доступ к новым функциям</li>
       </ul>
-      <a href="/pay.html" class="btn-glow" style="display:block;text-align:center;text-decoration:none;padding:14px;border-radius:8px;font-size:13px;letter-spacing:1px;">💳 Оплатить</a>
+      <a id="idx-btn-biz" href="/pay.html?plan=biz_1m" class="btn-glow" style="display:block;text-align:center;text-decoration:none;padding:14px;border-radius:8px;font-size:13px;letter-spacing:1px;">💳 Оплатить 1 290 ₽</a>
     </div>
 
   </div>
@@ -1096,7 +1113,28 @@ function toggleFaq(btn){
   if(!isOpen)item.classList.add('open');
 }
 
-// waitlist removed — app is live in App Store
+const idxProPrices = [
+  {amount:'690<small> ₽</small>',period:'оплата ежемесячно',btn:'690 ₽',plan:'pro_1m'},
+  {amount:'3 490<small> ₽</small>',period:'582 ₽/мес · −16%',btn:'3 490 ₽',plan:'pro_6m'},
+  {amount:'5 990<small> ₽</small>',period:'499 ₽/мес · −28%',btn:'5 990 ₽',plan:'pro_1y'},
+  {amount:'9 990<small> ₽</small>',period:'416 ₽/мес · −40%',btn:'9 990 ₽',plan:'pro_2y'},
+];
+const idxBizPrices = [
+  {amount:'1 290<small> ₽</small>',period:'оплата ежемесячно',btn:'1 290 ₽',plan:'biz_1m'},
+  {amount:'6 490<small> ₽</small>',period:'1 082 ₽/мес · −16%',btn:'6 490 ₽',plan:'biz_6m'},
+  {amount:'11 200<small> ₽</small>',period:'933 ₽/мес · −28%',btn:'11 200 ₽',plan:'biz_1y'},
+  {amount:'18 900<small> ₽</small>',period:'788 ₽/мес · −39%',btn:'18 900 ₽',plan:'biz_2y'},
+];
+function setIdxPeriod(tier, idx){
+  const prices = tier === 'pro' ? idxProPrices : idxBizPrices;
+  const p = prices[idx];
+  document.getElementById('idx-'+tier+'-amount').innerHTML = p.amount;
+  document.getElementById('idx-'+tier+'-period').textContent = p.period;
+  const tabs = document.getElementById('idx-period-'+tier).querySelectorAll('.period-tab');
+  tabs.forEach((t,i)=>t.classList.toggle('active',i===idx));
+  const btn = document.getElementById('idx-btn-'+tier);
+  if(btn){ btn.textContent = '💳 Оплатить ' + p.btn; btn.href = '/pay.html?plan=' + p.plan; }
+}
 
 // Stats counter animation
 (function(){
