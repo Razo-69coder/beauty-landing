@@ -204,6 +204,20 @@ nav{
   text-align:center;margin-top:16px;padding-top:16px;
   border-top:1px solid rgba(255,255,255,.07);
 }
+/* ─── STAT BLOCK ─── */
+.stat-block{
+  background:rgba(255,105,180,.06);border:1px solid rgba(255,105,180,.18);
+  border-radius:10px;padding:12px 14px;margin-bottom:16px;
+}
+.stat-label-top{font-size:11px;color:rgba(255,255,255,.4);font-weight:700;letter-spacing:.5px;margin-bottom:8px;}
+.stat-chips{display:flex;gap:6px;flex-wrap:wrap;}
+.stat-chip{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,105,180,.2);
+  border-radius:8px;padding:6px 10px;text-align:center;flex:1;min-width:60px;
+}
+.stat-chip-val{font-size:14px;font-weight:800;color:var(--pink);display:block;line-height:1.2;}
+.stat-chip-key{font-size:10px;color:rgba(255,255,255,.4);font-weight:600;display:block;margin-top:2px;}
+
 .modal-no-account button{
   background:none;border:none;color:rgba(255,255,255,.4);font-size:13px;
   cursor:pointer;font-family:'Nunito',sans-serif;text-decoration:underline;
@@ -374,6 +388,14 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
       </div>
       <div class="p-amount" id="pro-amount">690<small> ₽</small></div>
       <div class="p-period" id="pro-period">оплата ежемесячно</div>
+      <div class="stat-block">
+        <div class="stat-label-top" id="pro-stat-label">📊 ЗА 1 МЕСЯЦ · СРЕДНЯЯ СТАТИСТИКА</div>
+        <div class="stat-chips">
+          <div class="stat-chip"><span class="stat-chip-val" id="pro-stat-clients">3</span><span class="stat-chip-key">клиента вернулись</span></div>
+          <div class="stat-chip"><span class="stat-chip-val" id="pro-stat-revenue">+6 900 ₽</span><span class="stat-chip-key">к выручке</span></div>
+          <div class="stat-chip"><span class="stat-chip-val" id="pro-stat-roi">10x</span><span class="stat-chip-key">ROI</span></div>
+        </div>
+      </div>
       <span class="saving-badge">Популярный выбор</span>
       <div class="p-hr"></div>
       <ul class="p-list">
@@ -397,6 +419,14 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
       </div>
       <div class="p-amount" id="biz-amount">1 290<small> ₽</small></div>
       <div class="p-period" id="biz-period">оплата ежемесячно</div>
+      <div class="stat-block">
+        <div class="stat-label-top" id="biz-stat-label">📊 ЗА 1 МЕСЯЦ · СРЕДНЯЯ СТАТИСТИКА</div>
+        <div class="stat-chips">
+          <div class="stat-chip"><span class="stat-chip-val" id="biz-stat-clients">3</span><span class="stat-chip-key">клиента вернулись</span></div>
+          <div class="stat-chip"><span class="stat-chip-val" id="biz-stat-revenue">+6 900 ₽</span><span class="stat-chip-key">к выручке</span></div>
+          <div class="stat-chip"><span class="stat-chip-val" id="biz-stat-roi">5x</span><span class="stat-chip-key">ROI</span></div>
+        </div>
+      </div>
       <div class="p-hr"></div>
       <ul class="p-list">
         <li>Всё из тарифа Про</li>
@@ -486,6 +516,20 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
   }
 })();
 
+const periodLabels = ['ЗА 1 МЕСЯЦ','ЗА 6 МЕСЯЦЕВ','ЗА 1 ГОД','ЗА 2 ГОДА'];
+const proStats = [
+  {clients:'3',revenue:'+6 900 ₽',roi:'10x'},
+  {clients:'18',revenue:'+41 400 ₽',roi:'12x'},
+  {clients:'36',revenue:'+82 800 ₽',roi:'14x'},
+  {clients:'72',revenue:'+165 600 ₽',roi:'17x'},
+];
+const bizStats = [
+  {clients:'3',revenue:'+6 900 ₽',roi:'5x'},
+  {clients:'18',revenue:'+41 400 ₽',roi:'6x'},
+  {clients:'36',revenue:'+82 800 ₽',roi:'7x'},
+  {clients:'72',revenue:'+165 600 ₽',roi:'9x'},
+];
+
 const proPrices = [
   {amount:'690<span class="small"> ₽</span>',period:'оплата ежемесячно',btn:'690 ₽',plan:'pro_1m',label:'Про · Месяц · 690 ₽'},
   {amount:'3 490<span class="small"> ₽</span>',period:'582 ₽/мес · экономия 650 ₽',btn:'3 490 ₽',plan:'pro_6m',label:'Про · 6 месяцев · 3 490 ₽'},
@@ -509,6 +553,12 @@ function setPeriod(tier, idx){
   tabs.forEach((t,i)=>t.classList.toggle('active',i===idx));
   const btn = document.getElementById('btn-'+tier);
   if(btn) btn.textContent = 'Оплатить ' + p.btn;
+  const stats = tier === 'pro' ? proStats : bizStats;
+  const s = stats[idx];
+  document.getElementById(tier+'-stat-label').textContent = '📊 ' + periodLabels[idx] + ' · СРЕДНЯЯ СТАТИСТИКА';
+  document.getElementById(tier+'-stat-clients').textContent = s.clients;
+  document.getElementById(tier+'-stat-revenue').textContent = s.revenue;
+  document.getElementById(tier+'-stat-roi').textContent = s.roi;
 }
 
 let currentTier = 'pro';
