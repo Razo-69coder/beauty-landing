@@ -505,9 +505,6 @@ function setPeriod(tier, idx){
   const p = prices[idx];
   document.getElementById(tier+'-amount').innerHTML = p.amount;
   document.getElementById(tier+'-period').textContent = p.period;
-  document.getElementById('pay-'+tier+'-amount').textContent = p.btn;
-  document.getElementById('pay-'+tier+'-label').textContent = p.label;
-  document.getElementById('pay-plan-'+tier).value = p.plan;
   const tabs = document.getElementById('period-'+tier).querySelectorAll('.period-tab');
   tabs.forEach((t,i)=>t.classList.toggle('active',i===idx));
   const btn = document.getElementById('btn-'+tier);
