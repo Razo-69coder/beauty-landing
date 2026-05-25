@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solvo Beauty — Управление записью</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--pink:#FF69B4;--purple:#9370DB;--bg:#0d0015;--white:#fff;--muted:rgba(255,255,255,0.5);--card:rgba(255,255,255,0.06);--border:rgba(255,255,255,0.1);}
+html{scroll-behavior:smooth;}
+body{background:linear-gradient(150deg,#1e0030 0%,#160025 35%,#120020 65%,#1a0028 100%);background-attachment:fixed;color:var(--white);font-family:'Nunito',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(147,112,219,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(147,112,219,.035) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+
+.wrap{position:relative;z-index:1;max-width:480px;margin:0 auto;padding:24px 20px 60px;}
+
+.logo{text-align:center;margin-bottom:32px;}
+.logo-text{font-size:22px;font-weight:900;background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+
+.screen{display:none;}
+.screen.active{display:block;}
+
+/* Phone screen */
+.title{font-size:24px;font-weight:800;text-align:center;margin-bottom:8px;}
+.subtitle{font-size:14px;color:var(--muted);text-align:center;margin-bottom:32px;line-height:1.5;}
+
+.field{margin-bottom:16px;}
+.field label{display:block;font-size:13px;font-weight:700;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;}
+.field input{width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:14px 16px;color:var(--white);font-size:16px;font-family:'Nunito',sans-serif;outline:none;transition:.2s;}
+.field input:focus{border-color:var(--purple);}
+.field input::placeholder{color:var(--muted);}
+
+.btn{width:100%;padding:16px;border:none;border-radius:16px;font-size:16px;font-weight:800;cursor:pointer;transition:.2s;font-family:'Nunito',sans-serif;}
+.btn-primary{background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;}
+.btn-primary:hover{opacity:.9;transform:translateY(-1px);}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.btn-ghost{background:var(--card);border:1.5px solid var(--border);color:var(--white);margin-top:12px;}
+.btn-ghost:hover{background:rgba(255,255,255,0.1);}
+
+.err{color:#ff6b6b;font-size:13px;text-align:center;margin-top:12px;display:none;}
+
+/* Appointments list */
+.appt-card{background:var(--card);border:1.5px solid var(--border);border-radius:18px;padding:18px;margin-bottom:14px;}
+.appt-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
+.appt-procedure{font-size:15px;font-weight:700;line-height:1.4;flex:1;margin-right:8px;}
+.appt-status{font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;white-space:nowrap;}
+.status-pending{background:rgba(255,193,7,0.15);color:#ffc107;}
+.status-confirmed{background:rgba(72,199,142,0.15);color:#48c78e;}
+.appt-meta{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
+.appt-meta span{font-size:13px;color:var(--muted);}
+.appt-meta span b{color:var(--white);}
+.appt-actions{display:flex;gap:8px;}
+.btn-cancel-appt{flex:1;padding:10px;border:1.5px solid rgba(255,100,100,0.4);background:rgba(255,100,100,0.08);color:#ff6b6b;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;transition:.2s;}
+.btn-cancel-appt:hover{background:rgba(255,100,100,0.15);}
+.btn-reschedule-appt{flex:1;padding:10px;border:1.5px solid rgba(147,112,219,0.4);background:rgba(147,112,219,0.08);color:var(--purple);border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;transition:.2s;}
+.btn-reschedule-appt:hover{background:rgba(147,112,219,0.15);}
+
+.empty{text-align:center;padding:48px 20px;color:var(--muted);}
+.empty-icon{font-size:48px;margin-bottom:12px;}
+.empty-text{font-size:15px;}
+
+/* Calendar */
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.cal-title{font-size:16px;font-weight:800;}
+.cal-nav{background:none;border:none;color:var(--white);font-size:20px;cursor:pointer;padding:4px 8px;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:20px;}
+.cal-day-name{text-align:center;font-size:11px;color:var(--muted);font-weight:700;padding:4px 0;}
+.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:.15s;}
+.cal-day:hover:not(.past):not(.empty-day){background:rgba(255,255,255,0.08);}
+.cal-day.past{color:rgba(255,255,255,0.2);cursor:default;}
+.cal-day.empty-day{visibility:hidden;}
+.cal-day.selected{background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;}
+.cal-day.today{border-color:var(--purple);}
+
+/* Time slots */
+.slots-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px;}
+.time-slot{padding:10px;text-align:center;background:var(--card);border:1.5px solid var(--border);border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;transition:.15s;}
+.time-slot:hover{background:rgba(255,255,255,0.1);}
+.time-slot.selected{background:linear-gradient(135deg,var(--pink),var(--purple));border-color:transparent;}
+
+/* Success */
+.success-icon{font-size:64px;text-align:center;margin-bottom:16px;}
+.success-title{font-size:24px;font-weight:800;text-align:center;margin-bottom:8px;}
+.success-text{font-size:14px;color:var(--muted);text-align:center;margin-bottom:32px;line-height:1.6;}
+
+.back-link{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:14px;font-weight:700;cursor:pointer;margin-bottom:24px;}
+.back-link:hover{color:var(--white);}
+
+.section-title{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo"><span class="logo-text">✦ Solvo Beauty</span></div>
+
+  <!-- Экран 1: Введи номер -->
+  <div class="screen active" id="screen-phone">
+    <div class="title">Ваши записи</div>
+    <div class="subtitle">Введите номер телефона, который вы указали при записи</div>
+    <div class="field">
+      <label>Номер телефона</label>
+      <input type="tel" id="inp-phone" placeholder="+7 (999) 000-00-00" oninput="formatPhone(this)">
+    </div>
+    <button class="btn btn-primary" id="btn-lookup" onclick="lookup()">Найти мои записи</button>
+    <div class="err" id="err-phone"></div>
+  </div>
+
+  <!-- Экран 2: Список записей -->
+  <div class="screen" id="screen-list">
+    <div class="back-link" onclick="showScreen('phone')">← Изменить номер</div>
+    <div class="title" id="list-title">Ваши записи</div>
+    <div class="subtitle" id="list-subtitle"></div>
+    <div id="appt-list"></div>
+  </div>
+
+  <!-- Экран 3: Выбор новой даты/времени -->
+  <div class="screen" id="screen-reschedule">
+    <div class="back-link" onclick="showScreen('list')">← Назад</div>
+    <div class="title">Перенести запись</div>
+    <div class="subtitle" id="reschedule-subtitle"></div>
+    <div class="section-title">Выберите новую дату</div>
+    <div class="cal-header">
+      <button class="cal-nav" onclick="changeMonth(-1)">‹</button>
+      <div class="cal-title" id="cal-title"></div>
+      <button class="cal-nav" onclick="changeMonth(1)">›</button>
+    </div>
+    <div class="cal-grid" id="cal-grid"></div>
+    <div id="slots-wrap" style="display:none">
+      <div class="section-title">Выберите время</div>
+      <div class="slots-grid" id="slots-grid"></div>
+    </div>
+    <button class="btn btn-primary" id="btn-confirm-reschedule" onclick="confirmReschedule()" disabled>Перенести запись</button>
+    <div class="err" id="err-reschedule"></div>
+  </div>
+
+  <!-- Экран 4: Успех -->
+  <div class="screen" id="screen-success">
+    <div class="success-icon" id="success-icon">✅</div>
+    <div class="success-title" id="success-title">Готово!</div>
+    <div class="success-text" id="success-text"></div>
+    <button class="btn btn-primary" onclick="showScreen('list'); loadAppointments()">Вернуться к записям</button>
+  </div>
+</div>
+
+<script>
+const API = 'https://beauty-bot-44ou.onrender.com';
+const slug = location.pathname.split('/my/')[1]?.replace(/\/$/, '') || '';
+const RU_MONTHS = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+const RU_MONTHS_GEN = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+const RU_DAYS_SHORT = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+
+let phone = '';
+let appointments = [];
+let clientName = '';
+let rescheduleAppt = null;
+let calYear, calMonth, selectedDate = null, selectedTime = null;
+
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+}
+
+function showErr(id, msg) {
+  const el = document.getElementById(id);
+  el.textContent = msg; el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', 4000);
+}
+
+function formatPhone(el) {
+  let v = el.value.replace(/\D/g,'');
+  if (v.startsWith('8')) v = '7' + v.slice(1);
+  if (v.startsWith('7') && v.length > 1) {
+    let d = v.slice(1);
+    let r = '+7';
+    if (d.length > 0) r += ' (' + d.slice(0,3);
+    if (d.length >= 3) r += ') ' + d.slice(3,6);
+    if (d.length >= 6) r += '-' + d.slice(6,8);
+    if (d.length >= 8) r += '-' + d.slice(8,10);
+    el.value = r;
+  } else if (v.length > 0) {
+    el.value = '+' + v;
+  }
+}
+
+async function lookup() {
+  const raw = document.getElementById('inp-phone').value.replace(/\D/g,'');
+  if (raw.length < 10) { showErr('err-phone', 'Введите корректный номер'); return; }
+  phone = '+' + (raw.startsWith('8') ? '7' + raw.slice(1) : raw);
+  document.getElementById('btn-lookup').disabled = true;
+  document.getElementById('btn-lookup').textContent = 'Ищем...';
+  try {
+    const r = await fetch(API + '/api/v1/my/' + slug + '/lookup', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({phone})
+    });
+    const data = await r.json();
+    clientName = data.client_name || '';
+    appointments = data.appointments || [];
+    renderList();
+    showScreen('list');
+  } catch(e) {
+    showErr('err-phone', 'Ошибка соединения');
+  } finally {
+    document.getElementById('btn-lookup').disabled = false;
+    document.getElementById('btn-lookup').textContent = 'Найти мои записи';
+  }
+}
+
+function statusLabel(s) {
+  if (s === 'pending') return '<span class="appt-status status-pending">Ожидает подтверждения</span>';
+  if (s === 'confirmed') return '<span class="appt-status status-confirmed">Подтверждено</span>';
+  return '';
+}
+
+function renderList() {
+  document.getElementById('list-title').textContent = clientName ? 'Привет, ' + clientName + '!' : 'Ваши записи';
+  document.getElementById('list-subtitle').textContent = appointments.length > 0 ? 'Предстоящие записи:' : '';
+  const el = document.getElementById('appt-list');
+  if (appointments.length === 0) {
+    el.innerHTML = '<div class="empty"><div class="empty-icon">📅</div><div class="empty-text">Предстоящих записей нет</div></div>';
+    return;
+  }
+  el.innerHTML = appointments.map(a => {
+    const d = new Date(a.date + 'T00:00:00');
+    const dateStr = d.getDate() + ' ' + RU_MONTHS_GEN[d.getMonth()] + ' ' + d.getFullYear();
+    const durStr = a.duration_min > 0 ? Math.floor(a.duration_min/60) + (a.duration_min%60 > 0 ? 'ч ' + a.duration_min%60 + 'мин' : 'ч') : '';
+    return `<div class="appt-card">
+      <div class="appt-header">
+        <div class="appt-procedure">${escHtml(a.procedure)}</div>
+        ${statusLabel(a.status)}
+      </div>
+      <div class="appt-meta">
+        <span>📅 <b>${dateStr}</b></span>
+        <span>🕐 <b>${a.time}</b>${durStr ? ' · ' + durStr : ''}</span>
+        ${a.price > 0 ? '<span>💰 <b>' + a.price + ' ₽</b></span>' : ''}
+      </div>
+      <div class="appt-actions">
+        <button class="btn-cancel-appt" onclick="cancelAppt(${a.id})">Отменить</button>
+        <button class="btn-reschedule-appt" onclick="startReschedule(${a.id})">Перенести</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+async function cancelAppt(id) {
+  if (!confirm('Отменить эту запись?')) return;
+  try {
+    const r = await fetch(API + '/api/v1/my/' + slug + '/cancel?appointment_id=' + id, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({phone})
+    });
+    if (!r.ok) { showErr('err-phone', 'Не удалось отменить'); return; }
+    document.getElementById('success-icon').textContent = '❌';
+    document.getElementById('success-title').textContent = 'Запись отменена';
+    document.getElementById('success-text').textContent = 'Ваша запись успешно отменена. Мастер получил уведомление.';
+    appointments = appointments.filter(a => a.id !== id);
+    showScreen('success');
+  } catch(e) {
+    showErr('err-phone', 'Ошибка соединения');
+  }
+}
+
+function startReschedule(id) {
+  rescheduleAppt = appointments.find(a => a.id === id);
+  if (!rescheduleAppt) return;
+  const d = new Date(rescheduleAppt.date + 'T00:00:00');
+  const dateStr = d.getDate() + ' ' + RU_MONTHS_GEN[d.getMonth()];
+  document.getElementById('reschedule-subtitle').textContent =
+    'Текущая запись: ' + dateStr + ' в ' + rescheduleAppt.time + ' — ' + rescheduleAppt.procedure;
+  const now = new Date();
+  calYear = now.getFullYear(); calMonth = now.getMonth();
+  selectedDate = null; selectedTime = null;
+  document.getElementById('slots-wrap').style.display = 'none';
+  document.getElementById('btn-confirm-reschedule').disabled = true;
+  renderCalendar();
+  showScreen('reschedule');
+}
+
+function changeMonth(dir) {
+  calMonth += dir;
+  if (calMonth < 0) { calMonth = 11; calYear--; }
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  renderCalendar();
+}
+
+function renderCalendar() {
+  document.getElementById('cal-title').textContent = RU_MONTHS[calMonth] + ' ' + calYear;
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML = RU_DAYS_SHORT.map(d => `<div class="cal-day-name">${d}</div>`).join('');
+  const today = new Date(); today.setHours(0,0,0,0);
+  const first = new Date(calYear, calMonth, 1);
+  let startDow = first.getDay(); if (startDow === 0) startDow = 7;
+  for (let i = 1; i < startDow; i++) grid.innerHTML += '<div class="cal-day empty-day"></div>';
+  const days = new Date(calYear, calMonth+1, 0).getDate();
+  for (let d = 1; d <= days; d++) {
+    const dt = new Date(calYear, calMonth, d);
+    const isPast = dt < today;
+    const isSun = dt.getDay() === 0;
+    const iso = calYear + '-' + String(calMonth+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+    const isSelected = selectedDate === iso;
+    const isToday = dt.getTime() === today.getTime();
+    const cls = ['cal-day', isPast||isSun?'past':'', isSelected?'selected':'', isToday?'today':''].filter(Boolean).join(' ');
+    grid.innerHTML += `<div class="${cls}" ${!isPast&&!isSun?`onclick="selectDate('${iso}')"`:''}>${d}</div>`;
+  }
+}
+
+async function selectDate(iso) {
+  selectedDate = iso; selectedTime = null;
+  document.getElementById('btn-confirm-reschedule').disabled = true;
+  renderCalendar();
+  const grid = document.getElementById('slots-grid');
+  const wrap = document.getElementById('slots-wrap');
+  grid.innerHTML = '<div style="grid-column:1/-1;color:rgba(255,255,255,0.4);text-align:center;padding:12px">Загрузка...</div>';
+  wrap.style.display = 'block';
+  const dur = rescheduleAppt?.duration_min || 0;
+  const durParam = dur > 0 ? '&duration=' + dur : '';
+  try {
+    const r = await fetch(API + '/api/v1/book/' + slug + '/slots?date=' + iso + durParam);
+    const data = await r.json();
+    const slots = data.slots || [];
+    if (slots.length === 0) {
+      grid.innerHTML = '<div style="grid-column:1/-1;color:rgba(255,255,255,0.4);text-align:center;padding:12px">Нет свободного времени</div>';
+      return;
+    }
+    grid.innerHTML = slots.map(s =>
+      `<div class="time-slot${selectedTime===s?' selected':''}" onclick="selectTime('${s}')">${s}</div>`
+    ).join('');
+  } catch(e) {
+    grid.innerHTML = '<div style="grid-column:1/-1;color:#ff6b6b;text-align:center;padding:12px">Ошибка загрузки</div>';
+  }
+}
+
+function selectTime(t) {
+  selectedTime = t;
+  document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected'));
+  event.target.classList.add('selected');
+  document.getElementById('btn-confirm-reschedule').disabled = false;
+}
+
+async function confirmReschedule() {
+  if (!rescheduleAppt || !selectedDate || !selectedTime) return;
+  document.getElementById('btn-confirm-reschedule').disabled = true;
+  document.getElementById('btn-confirm-reschedule').textContent = 'Переносим...';
+  try {
+    const r = await fetch(API + '/api/v1/my/' + slug + '/reschedule', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        phone,
+        appointment_id: rescheduleAppt.id,
+        new_date: selectedDate,
+        new_time: selectedTime,
+        duration: rescheduleAppt.duration_min || 0
+      })
+    });
+    const data = await r.json();
+    if (!r.ok) { showErr('err-reschedule', data.detail || 'Ошибка'); return; }
+    const d = new Date(selectedDate + 'T00:00:00');
+    const dateStr = d.getDate() + ' ' + RU_MONTHS_GEN[d.getMonth()];
+    document.getElementById('success-icon').textContent = '🔄';
+    document.getElementById('success-title').textContent = 'Запись перенесена!';
+    document.getElementById('success-text').textContent =
+      'Новое время: ' + dateStr + ' в ' + selectedTime + '.\nМастер получил уведомление и подтвердит перенос.';
+    appointments = appointments.filter(a => a.id !== rescheduleAppt.id);
+    showScreen('success');
+  } catch(e) {
+    showErr('err-reschedule', 'Ошибка соединения');
+  } finally {
+    document.getElementById('btn-confirm-reschedule').disabled = false;
+    document.getElementById('btn-confirm-reschedule').textContent = 'Перенести запись';
+  }
+}
+
+async function loadAppointments() {
+  try {
+    const r = await fetch(API + '/api/v1/my/' + slug + '/lookup', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({phone})
+    });
+    const data = await r.json();
+    appointments = data.appointments || [];
+    renderList();
+  } catch(e) {}
+}
+</script>
+</body>
+</html>
