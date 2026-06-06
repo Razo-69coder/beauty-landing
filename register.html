@@ -239,7 +239,7 @@ async function handleRegister(e){
       btn.disabled=false;btn.textContent='Зарегистрироваться';
       return;
     }
-    document.querySelector('.p-card').innerHTML='<div class="card-title">Аккаунт создан 🎉</div><p style="font-size:14px;color:rgba(255,255,255,.6);line-height:1.6;margin-top:12px;">Теперь скачайте приложение Solva Beauty в App Store и войдите с этими же email и паролем.</p><a href="index.html#cta" class="btn btn-primary" style="margin-top:16px;display:block;text-align:center;">Скачать приложение</a>';
+    document.querySelector('.p-card').innerHTML='<div class="card-title">Аккаунт создан 🎉</div><p style="font-size:14px;color:rgba(255,255,255,.6);line-height:1.6;margin-top:12px;">Вам активирован бесплатный пробный период Pro на 30 дней — доступны все функции без ограничений.</p><p style="font-size:14px;color:rgba(255,255,255,.6);line-height:1.6;margin-top:8px;">Теперь скачайте приложение Solva Beauty в App Store и войдите с этими же email и паролем.</p><a href="index.html#cta" class="btn btn-primary" style="margin-top:16px;display:block;text-align:center;">Скачать приложение</a>';
   }catch(err){
     errEl.textContent='Ошибка соединения. Попробуйте ещё раз.';
     errEl.style.display='block';
