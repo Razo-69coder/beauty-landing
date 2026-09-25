@@ -235,7 +235,10 @@ section{position:relative;z-index:2;}
 .more{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:28px;overflow:hidden;margin-top:60px;}
 .more-item{background:var(--ink);padding:36px 32px;transition:background .4s var(--ease);}
 .more-item:hover{background:var(--plum);}
-.more-ic{font-size:26px;margin-bottom:18px;}
+.more-ic{width:46px;height:46px;border-radius:14px;margin-bottom:20px;display:grid;place-items:center;
+  color:var(--blush);background:var(--blush-soft);border:1px solid rgba(255,111,174,.22);transition:transform .5s var(--ease),background .4s var(--ease);}
+.more-ic svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+.more-item:hover .more-ic{transform:translateY(-3px) rotate(-6deg);background:rgba(255,111,174,.22);}
 .more-t{font-weight:600;font-size:17px;margin-bottom:8px;}
 .more-d{font-size:14px;color:var(--muted);}
 
@@ -490,12 +493,12 @@ footer{border-top:1px solid var(--line);padding:48px 24px;}
     </div>
 
     <div class="more">
-      <div class="more-item rv"><div class="more-ic">🔔</div><div class="more-t">Напоминания о записи</div><div class="more-d">За сутки и за 2 часа — клиенту в Telegram, автоматически.</div></div>
-      <div class="more-item rv d1"><div class="more-ic">🔁</div><div class="more-t">Напоминание о коррекции</div><div class="more-d">Через 3 недели после визита — клиентка возвращается сама.</div></div>
-      <div class="more-item rv d2"><div class="more-ic">🎂</div><div class="more-t">Поздравления с ДР</div><div class="more-d">Приложение поздравит клиентку за тебя.</div></div>
-      <div class="more-item rv"><div class="more-ic">💝</div><div class="more-t">Скидки постоянным</div><div class="more-d">Программа лояльности — в процентах или рублях.</div></div>
-      <div class="more-item rv d1"><div class="more-ic">💳</div><div class="more-t">Предоплата</div><div class="more-d">Твои реквизиты приходят клиенту в напоминании.</div></div>
-      <div class="more-item rv d2"><div class="more-ic">⭐</div><div class="more-t">Отзывы после визита</div><div class="more-d">Клиентка получает просьбу оценить работу.</div></div>
+      <div class="more-item rv"><div class="more-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div><div class="more-t">Напоминания о записи</div><div class="more-d">За сутки и за 2 часа — клиенту в Telegram, автоматически.</div></div>
+      <div class="more-item rv d1"><div class="more-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg></div><div class="more-t">Напоминание о коррекции</div><div class="more-d">Через 3 недели после визита — клиентка возвращается сама.</div></div>
+      <div class="more-item rv d2"><div class="more-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"/><path d="M2 21h20"/><path d="M7 8v3M12 8v3M17 8v3"/><path d="M7 4h.01M12 4h.01M17 4h.01"/></svg></div><div class="more-t">Поздравления с ДР</div><div class="more-d">Приложение поздравит клиентку за тебя.</div></div>
+      <div class="more-item rv"><div class="more-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.6 2.6A2 2 0 0 0 11.2 2H4a2 2 0 0 0-2 2v7.2a2 2 0 0 0 .6 1.4l8.7 8.7a2.4 2.4 0 0 0 3.4 0l6.6-6.6a2.4 2.4 0 0 0 0-3.4z"/><circle cx="7.5" cy="7.5" r="1.2"/></svg></div><div class="more-t">Скидки постоянным</div><div class="more-d">Программа лояльности — в процентах или рублях.</div></div>
+      <div class="more-item rv d1"><div class="more-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20"/><path d="M6 15h4"/></svg></div><div class="more-t">Предоплата</div><div class="more-d">Твои реквизиты приходят клиенту в напоминании.</div></div>
+      <div class="more-item rv d2"><div class="more-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.8 5.7 6.3.9-4.6 4.4 1.1 6.3L12 17.1l-5.6 3 1.1-6.3-4.6-4.4 6.3-.9z"/></svg></div><div class="more-t">Отзывы после визита</div><div class="more-d">Клиентка получает просьбу оценить работу.</div></div>
     </div>
   </div>
 </section>
