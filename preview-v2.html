@@ -138,9 +138,21 @@ main,header,footer{position:relative;z-index:2;}
 .doll-l{left:-34px;}
 .doll-r{right:-34px;animation-delay:1.2s;}
 .doll img{width:100%;animation:bob 6s ease-in-out infinite;-webkit-mask-image:linear-gradient(to bottom,#000 78%,transparent 100%);mask-image:linear-gradient(to bottom,#000 78%,transparent 100%);}
-.doll-l img{filter:drop-shadow(0 0 34px rgba(255,111,174,.45)) drop-shadow(0 24px 30px rgba(0,0,0,.55));}
-.doll-r img{filter:drop-shadow(0 0 34px rgba(180,140,255,.45)) drop-shadow(0 24px 30px rgba(0,0,0,.55));animation-delay:-3s;}
+.doll-l{filter:drop-shadow(0 0 34px rgba(255,111,174,.45)) drop-shadow(0 24px 30px rgba(0,0,0,.55));}
+.doll-r{filter:drop-shadow(0 0 34px rgba(180,140,255,.45)) drop-shadow(0 24px 30px rgba(0,0,0,.55));}
+.doll-r img{animation-delay:-3s;}
 @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+/* белая кукла — правее, чтобы не закрывала экран статистики */
+.doll-r{right:-120px;}
+@media(max-width:1200px){.doll-r{right:-34px;}}
+/* розовая кукла слева от заголовка — только на широких экранах */
+.hero-copy{position:relative;}
+.doll-side{display:none;left:-290px;top:120px;bottom:auto;width:250px;animation-delay:.8s;}
+.doll-side{filter:drop-shadow(0 0 40px rgba(255,111,174,.45)) drop-shadow(0 24px 30px rgba(0,0,0,.55));}
+@media(min-width:1640px){
+  .doll-side{display:block;}
+  .stage .doll-l{display:none;}
+}
 .clock{
   position:absolute;right:0;top:24px;z-index:6;
   padding:14px 20px;border-radius:18px;
@@ -365,7 +377,8 @@ footer{border-top:1px solid var(--line);padding:48px 24px;}
 
 <!-- ─── HERO ─── -->
 <section class="hero">
-  <div>
+  <div class="hero-copy">
+    <div class="doll doll-side" aria-hidden="true"><img src="images/bratz-doll-1.webp" alt=""></div>
     <div class="eyebrow load l1">Приложение для мастеров красоты</div>
     <h1 class="load l2">Клиенты записываются сами&nbsp;—<em>пока ты спишь.</em></h1>
     <p class="hero-sub load l3">Онлайн-запись по ссылке, напоминания клиентам в Telegram и вся история клиенток — в одном красивом приложении на iPhone.</p>
