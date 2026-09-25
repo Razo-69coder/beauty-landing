@@ -132,8 +132,17 @@ main,header,footer{position:relative;z-index:2;}
 .t-top b{color:var(--muted);font-weight:600;letter-spacing:.3px;text-transform:uppercase;font-size:11px;}
 .t-title{font-size:14px;font-weight:600;line-height:1.3;}
 .t-body{font-size:13px;color:var(--muted);line-height:1.35;}
+/* куклы по бокам от веера */
+.doll{position:absolute;bottom:-18px;z-index:5;width:215px;pointer-events:none;
+  opacity:0;transform:translateY(40px);animation:up 1.3s var(--ease) 1s forwards;}
+.doll-l{left:-34px;}
+.doll-r{right:-34px;animation-delay:1.2s;}
+.doll img{width:100%;animation:bob 6s ease-in-out infinite;-webkit-mask-image:linear-gradient(to bottom,#000 78%,transparent 100%);mask-image:linear-gradient(to bottom,#000 78%,transparent 100%);}
+.doll-l img{filter:drop-shadow(0 0 34px rgba(255,111,174,.45)) drop-shadow(0 24px 30px rgba(0,0,0,.55));}
+.doll-r img{filter:drop-shadow(0 0 34px rgba(180,140,255,.45)) drop-shadow(0 24px 30px rgba(0,0,0,.55));animation-delay:-3s;}
+@keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
 .clock{
-  position:absolute;right:0;bottom:36px;z-index:6;
+  position:absolute;right:0;top:24px;z-index:6;
   padding:14px 20px;border-radius:18px;
   background:rgba(21,12,26,.75);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--line);
 }
@@ -309,8 +318,11 @@ footer{border-top:1px solid var(--line);padding:48px 24px;}
   .toasts{width:250px;left:16px;}
   .toast{padding:10px 12px;border-radius:16px;grid-template-columns:32px 1fr;}
   .t-icon{width:32px;height:32px;font-size:18px;}
-  .clock{right:16px;bottom:20px;padding:10px 14px;}
-  .clock .time{font-size:28px;}
+  .clock{display:none;}
+  .toast:nth-child(n+2){display:none;}
+  .doll{width:138px;bottom:-6px;}
+  .doll-l{left:4px;}
+  .doll-r{right:4px;}
   .sec{padding:96px 0;}
   .ticker span{font-size:22px;}
   .more{grid-template-columns:1fr;}
@@ -325,7 +337,7 @@ footer{border-top:1px solid var(--line);padding:48px 24px;}
 }
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;}
-  .rv,.load{opacity:1;transform:none;}
+  .rv,.load,.doll{opacity:1;transform:none;}
   .pain-a{opacity:1;transform:none;}
 }
 </style>
@@ -374,6 +386,8 @@ footer{border-top:1px solid var(--line);padding:48px 24px;}
       <img class="p-r" src="images/app-stats.webp" alt="">
       <img class="p-c" src="images/app-schedule.webp" alt="">
     </div>
+    <div class="doll doll-l"><img src="images/bratz-doll-1.webp" alt=""></div>
+    <div class="doll doll-r"><img src="images/bratz-doll-2.webp" alt=""></div>
     <div class="toasts" id="toasts"></div>
     <div class="clock"><div class="time" id="clock">02:47</div><div class="lbl">🌙 ты спишь, запись идёт</div></div>
   </div>
