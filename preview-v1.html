@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Solvo Beauty — умная запись для мастеров красоты</title>
+<meta name="description" content="Нативное iOS-приложение для мастеров красоты. Записи, клиенты, аналитика — всё в одном месте.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Solvo Beauty — умная запись для мастеров красоты">
+<meta property="og:description" content="Нативное iOS-приложение для мастеров красоты. Записи, клиенты, аналитика — всё в одном месте.">
+<meta property="og:image" content="https://beauty-bot-44ou.onrender.com/images/bratz-doll-1.png">
+<meta property="og:url" content="https://landing-gules-nine-56.vercel.app">
+<meta property="og:type" content="website">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Solvo Beauty — умная запись для мастеров красоты">
+<meta name="twitter:description" content="iOS-приложение для мастеров красоты. Клиенты записываются сами!">
+
+<!-- Schema.org LocalBusiness -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Solvo Beauty",
+  "description": "Нативное iOS-приложение для мастеров красоты",
+  "url": "https://landing-gules-nine-56.vercel.app",
+  "telephone": "+79000000000",
+  "email": "beautybook@rambler.ru",
+  "priceRange": "₽₽₽",
+  "areaServed": {
+    "@type": "Country",
+    "name": "Russia"
+  },
+  "serviceType": "iOS-приложение для записи клиентов"
+}
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nunito:wght@400;600;700;800;900&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --pink:#FF69B4;--purple:#9370DB;
+  --bg1:#0d0015;--bg2:#130820;--bg3:#0a1220;
+  --white:#fff;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+  background:linear-gradient(150deg,#1e0030 0%,#160025 35%,#120020 65%,#1a0028 100%);
+  background-attachment:fixed;
+  color:var(--white);font-family:'Nunito',sans-serif;overflow-x:hidden;
+}
+
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(147,112,219,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(147,112,219,.035) 1px,transparent 1px);
+  background-size:52px 52px;pointer-events:none;z-index:0;
+}
+
+.glitter{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.spark{
+  position:absolute;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,105,180,.85),transparent 70%);
+  animation:twinkle 4s ease-in-out infinite;
+}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.4);}50%{opacity:1;transform:scale(1);}}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:200;
+  background:rgba(13,0,21,.8);backdrop-filter:blur(20px);
+  border:1px solid rgba(255,105,180,.22);border-radius:50px;
+  display:flex;align-items:center;gap:6px;
+  padding:8px 8px 8px 28px;width:fit-content;max-width:calc(100% - 32px);
+}
+.logo-wrap{display:flex;align-items:center;gap:10px;margin-right:20px;}
+.logo-icon{
+  width:30px;height:30px;border-radius:8px;
+  background:linear-gradient(135deg,var(--pink),var(--purple));
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;flex-shrink:0;
+}
+.logo{
+  font-family:'Black Han Sans',sans-serif;font-size:18px;letter-spacing:1px;
+  background:linear-gradient(90deg,var(--pink),var(--purple));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.nav-links{display:flex;gap:2px;}
+.nav-links a{
+  text-decoration:none;color:rgba(255,255,255,.55);font-size:13px;font-weight:700;
+  padding:8px 16px;border-radius:30px;transition:all .2s;
+}
+.nav-links a:hover{background:rgba(255,105,180,.12);color:var(--pink);}
+.nav-cta{
+  background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;border:none;
+  padding:12px 26px;border-radius:30px;font-size:13px;font-weight:800;cursor:pointer;
+  font-family:'Nunito',sans-serif;transition:opacity .2s;letter-spacing:.5px;
+}
+.nav-cta:hover{opacity:.85;}
+
+/* ─── HERO ─── */
+.hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 520px 1fr;
+  align-items:end;
+  padding:80px 0 0;
+  position:relative;z-index:1;
+  max-width:1320px;margin:0 auto;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;
+  width:620px;height:700px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(255,105,180,.22) 0%,rgba(255,105,180,.07) 50%,transparent 70%);
+  top:50%;left:5%;transform:translateY(-50%);pointer-events:none;z-index:0;
+}
+.hero::after{
+  content:'';position:absolute;
+  width:620px;height:700px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(147,112,219,.22) 0%,rgba(147,112,219,.07) 50%,transparent 70%);
+  top:50%;right:5%;transform:translateY(-50%);pointer-events:none;z-index:0;
+}
+.hero-center{
+  text-align:center;padding:0 24px 80px;
+  display:flex;flex-direction:column;align-items:center;
+  position:relative;z-index:2;
+}
+.hero-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid rgba(255,105,180,.35);
+  background:rgba(255,105,180,.07);
+  color:var(--pink);font-size:11px;font-weight:800;
+  letter-spacing:3px;text-transform:uppercase;
+  padding:8px 22px;border-radius:6px;margin-bottom:28px;
+}
+.hero h1{
+  font-family:'Black Han Sans',sans-serif;
+  font-size:clamp(44px,5.5vw,80px);
+  line-height:.9;letter-spacing:-2px;margin-bottom:14px;
+}
+.h1-white{color:#fff;display:block;}
+.h1-pink{
+  display:block;
+  background:linear-gradient(90deg,var(--pink) 0%,#d060ff 50%,var(--pink) 100%);
+  background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:shimmer 5s linear infinite;
+}
+.h1-outline{display:block;color:transparent;-webkit-text-stroke:2px rgba(147,112,219,.65);}
+@keyframes shimmer{from{background-position:0 center;}to{background-position:200% center;}}
+
+.hero-tagline{
+  font-family:'Black Han Sans',sans-serif;
+  font-size:clamp(13px,1.4vw,17px);
+  letter-spacing:4px;text-transform:uppercase;
+  background:linear-gradient(90deg,var(--pink),var(--purple));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:18px;opacity:.9;
+}
+.hero-desc{
+  font-size:16px;color:rgba(255,255,255,.55);
+  max-width:400px;margin:0 auto 32px;line-height:1.75;font-weight:600;
+}
+.btn-glow{
+  background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;border:none;
+  padding:18px 44px;border-radius:8px;font-size:15px;font-weight:800;cursor:pointer;
+  font-family:'Nunito',sans-serif;letter-spacing:.5px;
+  box-shadow:0 0 30px rgba(255,105,180,.35);transition:transform .2s,box-shadow .2s;
+}
+.btn-glow:hover{transform:scale(1.04);box-shadow:0 0 50px rgba(255,105,180,.55);}
+.hero-for{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:24px;}
+.for-tag{
+  font-size:12px;font-weight:700;
+  border:1px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.5);
+  padding:5px 14px;border-radius:20px;
+  transition:all .2s;cursor:default;
+}
+.for-tag:hover{border-color:rgba(255,105,180,.4);color:var(--pink);}
+
+.doll-col{position:relative;display:flex;align-items:flex-end;overflow:visible;z-index:2;}
+.doll-col-left{justify-content:flex-end;padding-right:0;}
+.doll-col-right{justify-content:flex-end;padding-left:0;}
+.doll-glow{
+  position:absolute;bottom:0;
+  width:280px;height:350px;border-radius:50%;
+  filter:blur(70px);opacity:.3;pointer-events:none;
+}
+.doll-col-left .doll-glow{background:radial-gradient(var(--pink),transparent 70%);right:-30px;}
+.doll-col-right .doll-glow{background:radial-gradient(var(--purple),transparent 70%);right:-30px;}
+.doll-img{display:block;position:relative;z-index:1;object-fit:contain;object-position:bottom;}
+.hero-mobile-doll{display:none;}
+.doll-col-left .doll-img{width:280px;height:360px;}
+.doll-col-right .doll-img{width:280px;height:360px;}
+.doll-badge{
+  position:absolute;z-index:3;
+  background:rgba(13,0,21,.75);backdrop-filter:blur(12px);
+  border:1px solid rgba(255,105,180,.3);border-radius:12px;
+  padding:10px 14px;font-size:12px;font-weight:700;
+  white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.4);
+  animation:float 4s ease-in-out infinite;
+}
+.doll-badge .badge-icon{font-size:16px;display:block;margin-bottom:2px;}
+.doll-badge .badge-label{color:rgba(255,255,255,.9);}
+.doll-badge .badge-sub{color:rgba(255,255,255,.45);font-size:10px;font-weight:600;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+.badge-1{top:80px;right:10px;animation-delay:0s;}
+.badge-2{top:200px;right:-20px;animation-delay:1.5s;}
+.badge-3{top:90px;left:10px;animation-delay:.8s;}
+.badge-4{top:210px;left:-20px;animation-delay:2.2s;}
+
+/* ─── HERO PHONES ─── */
+.hero-phone{
+  position:absolute;bottom:70px;width:190px;height:auto;z-index:0;
+  filter:drop-shadow(0 20px 40px rgba(0,0,0,.55)) drop-shadow(0 0 30px rgba(255,105,180,.25));
+  pointer-events:none;
+}
+.doll-col-left .hero-phone{left:0;transform:rotate(-8deg);animation:phoneL 6s ease-in-out infinite;}
+.doll-col-right .hero-phone{right:0;transform:rotate(8deg);animation:phoneR 6s ease-in-out infinite -3s;
+  filter:drop-shadow(0 20px 40px rgba(0,0,0,.55)) drop-shadow(0 0 30px rgba(147,112,219,.3));}
+@keyframes phoneL{0%,100%{transform:rotate(-8deg) translateY(0);}50%{transform:rotate(-8deg) translateY(-12px);}}
+@keyframes phoneR{0%,100%{transform:rotate(8deg) translateY(0);}50%{transform:rotate(8deg) translateY(-12px);}}
+.doll-col-right{justify-content:flex-start;}
+.doll-col-right .doll-glow{right:auto;left:-30px;}
+.hero-mobile-phones{display:none;}
+@media(max-width:1150px){.hero-phone{width:150px;bottom:90px;}}
+@media(max-width:980px){.hero-phone{display:none;}}
+
+/* ─── ONBOARDING STEPS ─── */
+.onb{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;position:relative;}
+.onb-card{
+  position:relative;padding:34px 28px 30px;border-radius:20px;
+  background:linear-gradient(160deg,rgba(255,105,180,.07),rgba(147,112,219,.04) 60%,rgba(13,0,21,.4));
+  border:1px solid rgba(255,105,180,.18);
+  display:flex;flex-direction:column;transition:transform .3s,border-color .3s,box-shadow .3s;
+}
+.onb-card:hover{transform:translateY(-6px);border-color:rgba(255,105,180,.45);box-shadow:0 18px 50px rgba(255,105,180,.12);}
+.onb-card:not(:last-child)::after{
+  content:'→';position:absolute;right:-22px;top:50%;transform:translate(50%,-50%);
+  width:34px;height:34px;border-radius:50%;z-index:2;
+  background:linear-gradient(135deg,var(--pink),var(--purple));
+  display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;
+  box-shadow:0 0 20px rgba(255,105,180,.45);
+}
+.onb-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
+.onb-num{
+  font-family:'Black Han Sans',sans-serif;font-size:54px;line-height:1;
+  background:linear-gradient(135deg,var(--pink),var(--purple));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.onb-icon{
+  width:54px;height:54px;border-radius:16px;font-size:26px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,105,180,.25);
+}
+.onb-title{font-size:19px;font-weight:900;margin-bottom:10px;}
+.onb-text{font-size:14px;color:rgba(255,255,255,.55);line-height:1.7;margin-bottom:22px;flex:1;}
+.onb-btn{
+  display:block;text-align:center;text-decoration:none;color:#fff;
+  padding:13px 18px;border-radius:10px;font-size:14px;font-weight:800;
+  background:linear-gradient(135deg,var(--pink),var(--purple));
+  box-shadow:0 8px 24px rgba(255,105,180,.25);transition:transform .2s,box-shadow .2s;
+}
+.onb-btn:hover{transform:scale(1.03);box-shadow:0 10px 34px rgba(255,105,180,.45);}
+.onb-btn.ghost{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);box-shadow:none;}
+.onb-done{
+  text-align:center;padding:13px 18px;border-radius:10px;font-size:14px;font-weight:800;
+  color:var(--pink);border:1px dashed rgba(255,105,180,.4);
+}
+.onb-note{text-align:center;margin-top:28px;font-size:13px;font-weight:700;color:rgba(255,255,255,.4);}
+.onb-note b{color:var(--pink);}
+
+/* ─── SINGLE REVIEW ─── */
+.review-hero{
+  max-width:900px;margin:0 auto;position:relative;overflow:hidden;
+  display:grid;grid-template-columns:1fr 240px;gap:40px;align-items:center;
+  padding:44px 44px 40px;border-radius:24px;
+  background:linear-gradient(150deg,rgba(255,105,180,.09),rgba(147,112,219,.06) 55%,rgba(13,0,21,.5));
+  border:1px solid rgba(255,105,180,.25);
+}
+.review-hero::before{
+  content:'"';position:absolute;top:-30px;left:26px;
+  font-size:200px;font-family:'Black Han Sans',sans-serif;
+  color:rgba(255,105,180,.08);line-height:1;pointer-events:none;
+}
+.review-hero .review-text{font-size:16px;color:rgba(255,255,255,.75);line-height:1.85;position:relative;}
+.review-hero .review-header{margin-top:24px;margin-bottom:0;}
+.review-verified{
+  display:inline-flex;align-items:center;gap:6px;margin-top:6px;
+  font-size:11px;font-weight:800;color:#5be3a8;letter-spacing:.5px;
+}
+.review-side{display:flex;flex-direction:column;gap:12px;}
+.review-chip{
+  display:flex;align-items:center;gap:10px;
+  padding:14px 16px;border-radius:14px;font-size:14px;font-weight:800;
+  background:rgba(13,0,21,.55);border:1px solid rgba(255,105,180,.22);
+}
+.review-chip span{font-size:20px;}
+
+/* ─── WAITLIST FORM ─── */
+.waitlist-form{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+.waitlist-input{
+  padding:16px 20px;border-radius:8px;border:1.5px solid rgba(255,105,180,.4);
+  background:rgba(255,255,255,.05);color:#fff;font-size:15px;
+  font-family:'Nunito',sans-serif;outline:none;min-width:260px;
+  transition:border-color .2s;
+}
+.waitlist-input:focus{border-color:var(--pink);}
+.waitlist-input::placeholder{color:rgba(255,255,255,.35);}
+
+/* ─── MARQUEE ─── */
+.marquee-wrap{
+  background:linear-gradient(90deg,var(--pink),var(--purple));
+  overflow:hidden;padding:13px 0;position:relative;z-index:1;
+}
+.marquee-track{display:flex;white-space:nowrap;animation:marquee 24s linear infinite;}
+.m-item{font-size:13px;font-weight:800;color:#fff;letter-spacing:3px;text-transform:uppercase;padding:0 26px;}
+.m-item::after{content:'✦';margin-left:26px;}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ─── SECTIONS ─── */
+.section{padding:88px 20px;max-width:1100px;margin:0 auto;position:relative;z-index:1;}
+.section-divider{border-top:1px solid rgba(255,105,180,.1);}
+.s-label{
+  font-size:11px;font-weight:800;letter-spacing:4px;text-transform:uppercase;
+  color:var(--pink);margin-bottom:12px;
+  display:flex;align-items:center;gap:12px;justify-content:center;
+}
+.s-label::before,.s-label::after{content:'';flex:1;max-width:34px;height:1px;background:var(--pink);opacity:.4;}
+.s-title{
+  font-family:'Black Han Sans',sans-serif;
+  font-size:clamp(28px,3.8vw,50px);
+  line-height:.95;letter-spacing:-1px;
+  text-align:center;margin-bottom:50px;
+}
+.s-title span{color:var(--pink);}
+
+/* ─── FOR WHO ─── */
+.for-who-strip{
+  background:rgba(255,105,180,.05);
+  border-top:1px solid rgba(255,105,180,.1);
+  border-bottom:1px solid rgba(255,105,180,.1);
+  padding:32px 20px;position:relative;z-index:1;
+}
+.for-who-inner{
+  max-width:960px;margin:0 auto;
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+}
+.for-who-desc{
+  font-size:15px;font-weight:700;color:rgba(255,255,255,.6);
+  text-align:center;line-height:1.6;max-width:680px;
+}
+.for-who-chips{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;}
+.for-who-label{font-size:13px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:1px;text-transform:uppercase;margin-right:4px;}
+.for-chip{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,105,180,.2);
+  border-radius:30px;padding:10px 20px;
+  font-size:14px;font-weight:800;transition:all .3s;
+}
+.for-chip:hover{background:rgba(255,105,180,.1);border-color:rgba(255,105,180,.5);}
+.for-chip-icon{font-size:18px;}
+
+/* ─── FEATURES ─── */
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;
+  background:rgba(255,105,180,.08);border:1px solid rgba(255,105,180,.1);
+  border-radius:16px;overflow:hidden;}
+.feat-card{
+  background:var(--bg1);padding:32px 26px;
+  transition:background .3s;position:relative;overflow:hidden;
+}
+.feat-card::before{
+  content:'';position:absolute;top:0;left:0;width:100%;height:2px;
+  background:linear-gradient(90deg,var(--pink),var(--purple));opacity:0;transition:opacity .3s;
+}
+.feat-card:hover::before{opacity:1;}
+.feat-card:hover{background:rgba(255,105,180,.04);}
+.feat-icon{
+  width:52px;height:52px;border-radius:13px;
+  background:linear-gradient(135deg,rgba(255,105,180,.12),rgba(147,112,219,.12));
+  border:1px solid rgba(255,105,180,.2);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:18px;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+.feat-card:hover .feat-icon{transform:scale(1.1) rotate(-4deg);}
+.feat-title{font-size:17px;font-weight:800;margin-bottom:8px;}
+.feat-text{font-size:14px;color:rgba(255,255,255,.45);line-height:1.7;}
+
+/* ─── HOW IT WORKS ─── */
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative;}
+.steps-grid::before{
+  content:'';position:absolute;
+  top:36px;left:calc(16.6% + 10px);right:calc(16.6% + 10px);
+  height:1px;background:linear-gradient(90deg,var(--pink),var(--purple));
+  opacity:.3;pointer-events:none;
+}
+.step{text-align:center;padding:32px 20px;}
+.step-num{
+  width:72px;height:72px;border-radius:50%;
+  background:linear-gradient(135deg,var(--pink),var(--purple));
+  display:flex;align-items:center;justify-content:center;
+  font-size:30px;
+  margin:0 auto 20px;
+  box-shadow:0 0 24px rgba(255,105,180,.35);
+}
+.step-title{font-size:18px;font-weight:800;margin-bottom:8px;}
+.step-text{font-size:14px;color:rgba(255,255,255,.45);line-height:1.65;}
+
+/* ─── MID CTA ─── */
+.mid-cta{
+  position:relative;z-index:1;overflow:hidden;padding:80px 20px;
+  border-top:1px solid rgba(255,105,180,.1);
+}
+.mid-cta-inner{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 340px;
+  gap:60px;align-items:center;
+}
+.mid-cta-title{
+  font-family:'Black Han Sans',sans-serif;
+  font-size:clamp(32px,4vw,56px);
+  line-height:.95;letter-spacing:-1px;margin-bottom:20px;
+}
+.mid-cta-title span{color:var(--pink);}
+.mid-cta-desc{font-size:16px;color:rgba(255,255,255,.5);line-height:1.75;margin-bottom:32px;max-width:480px;}
+.mid-cta-stats{display:flex;gap:28px;margin-bottom:36px;}
+.mstat{border-left:2px solid var(--pink);padding-left:16px;}
+.mstat-n{font-family:'Black Han Sans',sans-serif;font-size:34px;color:var(--pink);display:block;line-height:1;}
+.mstat-l{font-size:12px;color:rgba(255,255,255,.4);font-weight:700;letter-spacing:1px;}
+.mid-doll-wrap{position:relative;display:flex;justify-content:center;align-items:flex-end;}
+.mid-doll-glow{
+  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:260px;height:320px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,105,180,.25),rgba(147,112,219,.15) 50%,transparent 70%);
+  filter:blur(50px);pointer-events:none;
+}
+.mid-doll-img{
+  width:300px;height:380px;
+  object-fit:contain;object-position:bottom;
+  position:relative;z-index:1;
+  filter:drop-shadow(0 10px 40px rgba(255,105,180,.3));
+}
+
+/* ─── PRICING ─── */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.p-card{
+  border:1px solid rgba(255,255,255,.08);border-radius:16px;
+  padding:36px 28px;position:relative;overflow:hidden;
+  transition:border-color .3s,transform .2s;
+}
+.p-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(160deg,rgba(255,105,180,.03),transparent 55%);pointer-events:none;
+}
+.p-card:hover{border-color:rgba(255,105,180,.35);transform:translateY(-4px);}
+.p-card.featured{border-color:rgba(255,105,180,.45);background:rgba(255,105,180,.04);}
+.p-hot{
+  position:absolute;top:18px;right:18px;
+  background:var(--pink);color:#fff;
+  font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;
+  padding:4px 10px;border-radius:4px;
+}
+.p-tier{font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:16px;}
+.p-amount{font-family:'Black Han Sans',sans-serif;font-size:52px;line-height:1;margin-bottom:4px;}
+.p-amount small{font-size:20px;color:rgba(255,255,255,.3);}
+.p-period{font-size:12px;color:rgba(255,255,255,.3);margin-bottom:8px;}
+.saving-badge{
+  display:inline-block;background:rgba(255,105,180,.15);
+  border:1px solid rgba(255,105,180,.4);color:var(--pink);
+  font-size:11px;font-weight:800;padding:4px 12px;
+  border-radius:20px;margin-bottom:16px;letter-spacing:.5px;
+}
+.p-hr{height:1px;background:linear-gradient(90deg,transparent,rgba(255,105,180,.3),transparent);margin-bottom:20px;}
+.p-list{list-style:none;margin-bottom:28px;}
+.p-list li{
+  font-size:14px;color:rgba(255,255,255,.6);padding:8px 0;
+  border-bottom:1px solid rgba(255,255,255,.05);
+  display:flex;align-items:center;gap:10px;
+}
+.p-list li::before{content:'◆';color:var(--pink);font-size:8px;flex-shrink:0;}
+.p-card .waitlist-form{flex-direction:column;align-items:stretch;}
+.p-card .waitlist-input{min-width:auto;}
+.p-card .btn-glow{
+  width:100%;padding:14px;border-radius:8px;font-size:13px;letter-spacing:1px;
+  box-shadow:none;
+}
+.p-card.featured .btn-glow{box-shadow:0 8px 24px rgba(255,105,180,.25);}
+
+/* ─── REVIEWS ─── */
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.review-card{
+  background:rgba(255,105,180,.04);
+  border:1px solid rgba(255,105,180,.14);
+  border-radius:16px;padding:28px;
+  position:relative;overflow:hidden;
+  transition:border-color .3s,transform .2s;
+}
+.review-card:hover{border-color:rgba(255,105,180,.35);transform:translateY(-4px);}
+.review-card::before{
+  content:'"';position:absolute;top:-14px;right:20px;
+  font-size:120px;font-family:'Black Han Sans',sans-serif;
+  color:rgba(255,105,180,.06);line-height:1;pointer-events:none;
+}
+.review-header{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.review-avatar{
+  width:52px;height:52px;border-radius:50%;flex-shrink:0;
+  overflow:hidden;display:block;
+}
+.review-meta{}
+.review-name{font-size:15px;font-weight:800;line-height:1.2;}
+.review-role{font-size:12px;color:rgba(255,255,255,.4);font-weight:600;margin-top:3px;}
+.review-stars{color:var(--pink);font-size:13px;letter-spacing:2px;margin-bottom:12px;}
+.review-text{font-size:14px;color:rgba(255,255,255,.55);line-height:1.75;font-style:italic;}
+
+/* ─── FAQ ─── */
+.faq-list{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:12px;}
+.faq-item{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,105,180,.12);
+  border-radius:12px;overflow:hidden;
+  transition:border-color .2s;
+}
+.faq-item.open{border-color:rgba(255,105,180,.4);}
+.faq-q{
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  padding:20px 24px;background:transparent;border:none;cursor:pointer;
+  font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;color:#fff;
+  text-align:left;gap:16px;
+}
+.faq-q:hover{background:rgba(255,105,180,.04);}
+.faq-arrow{
+  width:28px;height:28px;border-radius:50%;flex-shrink:0;
+  background:rgba(255,105,180,.12);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;transition:transform .3s,background .2s;
+  color:var(--pink);
+}
+.faq-item.open .faq-arrow{transform:rotate(180deg);background:rgba(255,105,180,.25);}
+.faq-a{
+  max-height:0;overflow:hidden;
+  transition:max-height .35s ease,padding .35s ease;
+  font-size:14px;color:rgba(255,255,255,.5);line-height:1.75;
+  padding:0 24px;
+}
+.faq-item.open .faq-a{max-height:200px;padding:0 24px 20px;}
+
+/* ─── FINAL CTA ─── */
+.final-cta{
+  padding:110px 20px;text-align:center;
+  position:relative;z-index:1;overflow:hidden;
+  border-top:1px solid rgba(255,105,180,.1);
+}
+.final-cta::before{
+  content:'SB';position:absolute;
+  font-family:'Black Han Sans',sans-serif;font-size:280px;letter-spacing:-10px;
+  color:rgba(255,105,180,.025);top:50%;left:50%;transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+.cta-inner{position:relative;z-index:1;}
+.cta-tag{
+  display:inline-block;border:1px solid rgba(255,105,180,.35);color:var(--pink);
+  font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;
+  padding:6px 20px;border-radius:4px;margin-bottom:28px;
+}
+.cta-h{
+  font-family:'Black Han Sans',sans-serif;
+  font-size:clamp(36px,5.5vw,76px);line-height:.92;letter-spacing:-2px;margin-bottom:18px;
+}
+.cta-h span{color:var(--pink);}
+.cta-sub{
+  font-size:16px;color:rgba(255,255,255,.45);
+  margin-bottom:40px;max-width:400px;margin-left:auto;margin-right:auto;line-height:1.7;
+}
+.cta-small{font-size:12px;color:rgba(255,255,255,.25);margin-top:14px;letter-spacing:.5px;}
+
+/* ─── STATS ─── */
+.stats-strip{
+  padding:72px 20px;
+  background:rgba(255,105,180,.03);
+  border-top:1px solid rgba(255,105,180,.1);
+  border-bottom:1px solid rgba(255,105,180,.1);
+  position:relative;z-index:1;
+}
+.stats-inner{
+  max-width:900px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:32px;text-align:center;
+}
+.stat-num{
+  font-family:'Black Han Sans',sans-serif;
+  font-size:clamp(52px,6.5vw,80px);
+  line-height:1;
+  background:linear-gradient(135deg,var(--pink),var(--purple));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  display:block;margin-bottom:10px;
+}
+.stat-label{font-size:16px;font-weight:700;color:rgba(255,255,255,.6);line-height:1.4;}
+.stat-sub{font-size:12px;color:rgba(255,255,255,.3);margin-top:5px;font-weight:600;letter-spacing:.5px;}
+
+/* ─── STAT BLOCK ─── */
+.stat-block{
+  background:rgba(255,105,180,.06);border:1px solid rgba(255,105,180,.18);
+  border-radius:10px;padding:12px 14px;margin-bottom:16px;
+}
+.stat-label-top{font-size:11px;color:rgba(255,255,255,.4);font-weight:700;letter-spacing:.5px;margin-bottom:8px;}
+.stat-chips{display:flex;gap:6px;flex-wrap:wrap;}
+.stat-chip{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,105,180,.2);
+  border-radius:8px;padding:6px 10px;text-align:center;flex:1;min-width:60px;
+}
+.stat-chip-val{font-size:14px;font-weight:800;color:var(--pink);display:block;line-height:1.2;}
+.stat-chip-key{font-size:10px;color:rgba(255,255,255,.4);font-weight:600;display:block;margin-top:2px;}
+
+/* ─── PERIOD TABS ─── */
+.period-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:16px;}
+.period-tab{
+  padding:8px 10px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;
+  font-family:'Nunito',sans-serif;border:1px solid rgba(255,105,180,.2);
+  background:transparent;color:rgba(255,255,255,.5);transition:all .2s;text-align:center;
+}
+.period-tab:hover{border-color:rgba(255,105,180,.4);color:var(--pink);}
+.period-tab.active{background:rgba(255,105,180,.15);border-color:var(--pink);color:var(--pink);}
+
+/* ─── MOBILE ─── */
+@media(max-width:768px){
+  nav{padding:8px 8px 8px 16px;gap:4px;}
+  .nav-links{display:none;}
+  .logo{font-size:16px;}
+  .nav-cta{padding:10px 18px;font-size:12px;}
+
+  .hero{
+    grid-template-columns:1fr;
+    padding:100px 20px 56px;
+    min-height:auto;
+  }
+  .doll-col{display:none;}
+  .hero::before,.hero::after{display:none;}
+  .hero-center{padding:0;}
+  .hero h1{font-size:clamp(40px,12vw,60px);}
+  .hero-desc{font-size:14px;}
+  .btn-glow{padding:16px 32px;font-size:14px;}
+
+  .hero-mobile-doll{
+    display:block;
+    width:230px;
+    height:auto;
+    margin:0 auto 20px;
+  }
+  .hero-mobile-phones{display:flex;justify-content:center;gap:0;margin-top:34px;}
+  .hero-mobile-phones img{width:44%;max-width:170px;height:auto;filter:drop-shadow(0 14px 30px rgba(0,0,0,.5));}
+  .hero-mobile-phones img:first-child{transform:rotate(-6deg) translateX(8px);}
+  .hero-mobile-phones img:last-child{transform:rotate(6deg) translateX(-8px) translateY(14px);}
+
+  .onb{grid-template-columns:1fr;gap:30px;}
+  .onb-card:not(:last-child)::after{content:'↓';right:50%;top:auto;bottom:-30px;transform:translate(50%,0);}
+  .review-hero{grid-template-columns:1fr;padding:34px 22px 28px;gap:24px;}
+  .review-hero .review-text{font-size:15px;}
+
+  .section{padding:56px 16px;}
+  .s-title{font-size:clamp(24px,7vw,38px);}
+
+  .features-grid{grid-template-columns:1fr;}
+  .steps-grid{grid-template-columns:1fr;gap:0;}
+  .steps-grid::before{display:none;}
+
+  .mid-cta{padding:56px 16px;}
+  .mid-cta-inner{grid-template-columns:1fr;gap:32px;}
+  .mid-doll-wrap{display:flex;justify-content:center;margin-top:32px;}
+  .mid-doll-img{width:220px;height:auto;}
+  .mid-cta-stats{gap:16px;flex-wrap:wrap;}
+  .mid-cta-title{font-size:clamp(28px,8vw,44px);}
+
+  .pricing-grid{grid-template-columns:1fr;}
+  .reviews-grid{grid-template-columns:1fr;}
+
+  .stats-inner{grid-template-columns:1fr;gap:28px;}
+
+  .final-cta{padding:72px 16px;}
+  .cta-h{font-size:clamp(32px,9vw,52px);}
+
+  .footer-tags{gap:6px;}
+  .footer-social{gap:10px;}
+
+  .waitlist-form{flex-direction:column;align-items:center;}
+  .waitlist-input{min-width:auto;width:100%;max-width:320px;}
+}
+
+/* ─── FOOTER ─── */
+footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:center;position:relative;z-index:1;}
+.footer-social{display:flex;justify-content:center;gap:12px;margin-bottom:24px;}
+.social-link{
+  width:44px;height:44px;border-radius:12px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,105,180,.2);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .25s;text-decoration:none;
+}
+.social-link:hover{background:rgba(255,105,180,.15);border-color:rgba(255,105,180,.5);transform:translateY(-2px);}
+.social-link svg{width:20px;height:20px;}
+.footer-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:24px;}
+.ftag{
+  font-size:12px;font-weight:700;letter-spacing:.5px;
+  color:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.07);
+  padding:5px 13px;border-radius:4px;transition:all .2s;cursor:default;
+}
+.ftag:hover{color:var(--pink);border-color:rgba(255,105,180,.3);}
+.footer-contacts{
+  font-size:13px;font-weight:700;
+  color:rgba(255,255,255,.35);
+  margin-bottom:20px;letter-spacing:.3px;
+}
+.footer-contacts a{
+  color:rgba(255,255,255,.45);text-decoration:none;
+  transition:color .2s;
+}
+.footer-contacts a:hover{color:var(--pink);}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.18);letter-spacing:1px;}
+</style>
+</head>
+<body>
+
+<div class="glitter" id="glitter"></div>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="logo-wrap" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="cursor:pointer;">
+    <div class="logo-icon">💅</div>
+    <div class="logo">Solvo Beauty</div>
+  </div>
+  <div class="nav-links">
+    <a href="#features">Функции</a>
+    <a href="#pricing">Цены</a>
+    <a href="#cta">Попробовать</a>
+    <a href="/account.html" style="padding:8px 20px;border-radius:20px;background:linear-gradient(135deg,#ff6fa5,#ff9ec4);color:#fff;text-decoration:none;font-weight:700;font-size:13px;box-shadow:0 4px 16px rgba(255,111,165,.35);">Вход</a>
+    <a href="/register.html" style="padding:8px 20px;border-radius:20px;background:linear-gradient(135deg,#a855f7,#ec4899);color:#fff;text-decoration:none;font-weight:700;font-size:13px;box-shadow:0 4px 16px rgba(168,85,247,.35);">Регистрация</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+
+  <!-- LEFT DOLL -->
+  <div class="doll-col doll-col-left">
+    <div class="doll-glow"></div>
+    <img src="images/app-schedule.webp" alt="Расписание в приложении Solvo Beauty" class="hero-phone" loading="eager">
+    <div class="doll-badge badge-1">
+      <span class="badge-icon">📅</span>
+      <span class="badge-label">Запись 24/7</span><br>
+      <span class="badge-sub">клиенты пишут сами</span>
+    </div>
+    <div class="doll-badge badge-2">
+      <span class="badge-icon">🔔</span>
+      <span class="badge-label">Напоминания</span><br>
+      <span class="badge-sub">авто-отправка</span>
+    </div>
+    <img src="images/bratz-doll-1.png" alt="Мастер маникюра Solvo Beauty - розовая кукла" class="doll-img"
+         style="filter:drop-shadow(0 0 30px rgba(255,105,180,.35)) drop-shadow(0 20px 40px rgba(0,0,0,.5));">
+  </div>
+
+  <!-- CENTER -->
+  <div class="hero-center">
+    <img src="images/bratz-doll-1.png" alt="Мастер маникюра Solvo Beauty - мобильная версия" class="hero-mobile-doll"
+         style="filter:drop-shadow(0 0 24px rgba(255,105,180,.4)) drop-shadow(0 10px 30px rgba(0,0,0,.5));">
+    <div class="hero-pill">✦ iOS ПРИЛОЖЕНИЕ ДЛЯ МАСТЕРОВ КРАСОТЫ ✦</div>
+    <h1>
+      <span class="h1-white">SOLVO</span>
+      <span class="h1-pink">BEAUTY</span>
+      <span class="h1-outline">APP</span>
+    </h1>
+    <p class="hero-tagline">Клиенты сами идут к тебе</p>
+    <p class="hero-desc">Нативное iOS-приложение для мастеров красоты. Записи, клиенты, аналитика — всё в одном месте.</p>
+    <a href="https://apps.apple.com/ru/app/solvo-beauty/id6787732588" target="_blank" rel="noopener" class="btn-glow" style="text-decoration:none;">🍎 Скачать в App Store</a>
+    <p style="font-size:13px;color:rgba(255,255,255,.4);margin-top:12px;font-weight:700;">Первый месяц Pro бесплатно · Только iOS</p>
+    <div class="hero-for">
+      <span class="for-tag">💅 Мастера маникюра</span>
+      <span class="for-tag">🎨 Бровистки</span>
+      <span class="for-tag">👁 Лешмейкеры</span>
+      <span class="for-tag">✨ Визажисты</span>
+    </div>
+    <div class="hero-mobile-phones">
+      <img src="images/app-schedule.webp" alt="Расписание в приложении Solvo Beauty">
+      <img src="images/app-stats.webp" alt="Аналитика в приложении Solvo Beauty">
+    </div>
+  </div>
+
+  <!-- RIGHT DOLL -->
+  <div class="doll-col doll-col-right">
+    <div class="doll-glow"></div>
+    <img src="images/app-stats.webp" alt="Аналитика в приложении Solvo Beauty" class="hero-phone" loading="eager">
+    <div class="doll-badge badge-3">
+      <span class="badge-icon">👤</span>
+      <span class="badge-label">Карточка клиента</span><br>
+      <span class="badge-sub">история + фото работ</span>
+    </div>
+    <div class="doll-badge badge-4">
+      <span class="badge-icon">📊</span>
+      <span class="badge-label">Аналитика</span><br>
+      <span class="badge-sub">доход и клиенты</span>
+    </div>
+    <img src="images/bratz-doll-2.png" alt="Мастер бровист Solvo Beauty - фиолетовая кукла" class="doll-img"
+         style="filter:drop-shadow(0 0 30px rgba(147,112,219,.35)) drop-shadow(0 20px 40px rgba(0,0,0,.5));">
+  </div>
+
+</section>
+
+<!-- ─── MARQUEE ─── -->
+<div class="marquee-wrap" style="position:relative;z-index:1;">
+  <div class="marquee-track">
+    <span class="m-item">Маникюр</span><span class="m-item">Брови</span>
+    <span class="m-item">Ресницы</span><span class="m-item">Макияж</span>
+    <span class="m-item">Запись 24/7</span><span class="m-item">Напоминания</span>
+    <span class="m-item">Аналитика</span><span class="m-item">Solvo Beauty</span>
+    <span class="m-item">Маникюр</span><span class="m-item">Брови</span>
+    <span class="m-item">Ресницы</span><span class="m-item">Макияж</span>
+    <span class="m-item">Запись 24/7</span><span class="m-item">Напоминания</span>
+    <span class="m-item">Аналитика</span><span class="m-item">Solvo Beauty</span>
+  </div>
+</div>
+
+<!-- ─── FOR WHO ─── -->
+<div class="for-who-strip">
+  <div class="for-who-inner">
+    <p class="for-who-desc">Для мастеров маникюра и педикюра, бровистов, лешмейкеров, визажистов и других beauty-специалистов</p>
+    <div class="for-who-chips">
+      <span class="for-who-label">Для кого</span>
+      <div class="for-chip"><span class="for-chip-icon">💅</span>Мастера маникюра и педикюра</div>
+      <div class="for-chip"><span class="for-chip-icon">🎨</span>Бровистки</div>
+      <div class="for-chip"><span class="for-chip-icon">👁</span>Лешмейкеры</div>
+      <div class="for-chip"><span class="for-chip-icon">✨</span>Визажисты</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FEATURES ─── -->
+<section class="section section-divider" id="features">
+  <p class="s-label">Возможности</p>
+  <h2 class="s-title">ЧТО УМЕЕТ <span>SOLVO BEAUTY</span></h2>
+  <div class="features-grid">
+
+    <div class="feat-card">
+      <div class="feat-icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+          <defs><linearGradient id="fi1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FF69B4"/><stop offset="1" stop-color="#9370DB"/></linearGradient></defs>
+          <rect x="8" y="2" width="8" height="3" rx="1.5" fill="url(#fi1)"/>
+          <path d="M7 5h10l1.5 14a1 1 0 01-1 1H6.5a1 1 0 01-1-1L7 5z" fill="url(#fi1)" opacity=".85"/>
+          <ellipse cx="10.5" cy="9" rx="1.5" ry="3" fill="white" opacity=".22" transform="rotate(-15 10.5 9)"/>
+        </svg>
+      </div>
+      <div class="feat-title">Запись 24/7</div>
+      <p class="feat-text">Клиенты записываются через твою ссылку в любое время суток. Приложение показывает расписание и подтверждает запись автоматически.</p>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+          <defs><linearGradient id="fi2" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FF69B4"/><stop offset="1" stop-color="#9370DB"/></linearGradient></defs>
+          <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" fill="url(#fi2)" opacity=".85"/>
+          <path d="M13.73 21a2 2 0 01-3.46 0" stroke="url(#fi2)" stroke-width="1.5" stroke-linecap="round"/>
+          <ellipse cx="9.5" cy="10" rx="1.5" ry="3" fill="white" opacity=".2" transform="rotate(-20 9.5 10)"/>
+        </svg>
+      </div>
+      <div class="feat-title">Авто-напоминания</div>
+      <p class="feat-text">Приложение автоматически напоминает клиенту о записи за день и за час. И напоминает о коррекции через нужное количество недель.</p>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+          <defs><linearGradient id="fi3" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FF69B4"/><stop offset="1" stop-color="#9370DB"/></linearGradient></defs>
+          <rect x="2" y="4" width="20" height="16" rx="3" fill="url(#fi3)" opacity=".18"/>
+          <rect x="2" y="4" width="20" height="16" rx="3" stroke="url(#fi3)" stroke-width="1.5"/>
+          <circle cx="8" cy="12" r="3" fill="url(#fi3)"/>
+          <path d="M13 9.5h5M13 13.5h4" stroke="url(#fi3)" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="feat-title">Карточка клиента</div>
+      <p class="feat-text">Полная история посещений, заметки мастера, фото выполненных работ. Всё в одном месте — открываешь и сразу помнишь всё о клиенте.</p>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+          <defs><linearGradient id="fi4" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FF69B4"/><stop offset="1" stop-color="#9370DB"/></linearGradient></defs>
+          <rect x="3" y="4" width="18" height="17" rx="3" fill="url(#fi4)" opacity=".15"/>
+          <rect x="3" y="4" width="18" height="17" rx="3" stroke="url(#fi4)" stroke-width="1.5"/>
+          <path d="M3 9.5h18" stroke="url(#fi4)" stroke-width="1.5"/>
+          <path d="M8 2v4M16 2v4" stroke="url(#fi4)" stroke-width="1.5" stroke-linecap="round"/>
+          <rect x="7" y="13.5" width="3" height="3" rx="1" fill="url(#fi4)"/>
+          <rect x="14" y="13.5" width="3" height="3" rx="1" fill="url(#fi4)" opacity=".5"/>
+        </svg>
+      </div>
+      <div class="feat-title">Календарь мастера</div>
+      <p class="feat-text">Наглядное расписание на день, неделю, месяц. Видишь все записи, свободные окна и загрузку — управляй временем легко.</p>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+          <defs><linearGradient id="fi5" x1="0" y1="1" x2="0" y2="0"><stop stop-color="#FF69B4"/><stop offset="1" stop-color="#9370DB"/></linearGradient></defs>
+          <rect x="3" y="13" width="4" height="8" rx="2" fill="url(#fi5)"/>
+          <rect x="10" y="8" width="4" height="13" rx="2" fill="url(#fi5)" opacity=".8"/>
+          <rect x="17" y="4" width="4" height="17" rx="2" fill="url(#fi5)" opacity=".6"/>
+          <path d="M2 21.5h20" stroke="url(#fi5)" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="feat-title">Статистика и аналитика</div>
+      <p class="feat-text">Сколько клиентов, какой доход, кто возвращается, кто пропал. Данные помогают развивать бизнес осознанно.</p>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+          <defs><linearGradient id="fi6" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FF69B4"/><stop offset="1" stop-color="#9370DB"/></linearGradient></defs>
+          <path d="M17 2H7a2 2 0 00-2 2v16a2 2 0 002 2h10a2 2 0 002-2V4a2 2 0 00-2-2z" fill="url(#fi6)" opacity=".18" stroke="url(#fi6)" stroke-width="1.5"/>
+          <circle cx="12" cy="18" r="1.2" fill="url(#fi6)"/>
+          <path d="M9 6h6M9 9h4" stroke="url(#fi6)" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="feat-title">Нативный iOS</div>
+      <p class="feat-text">Красивый нативный интерфейс на iPhone. Никаких тормозов и багов — приложение работает быстро и стабильно.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── HOW IT WORKS ─── -->
+<section class="section section-divider" id="start">
+  <p class="s-label">Как начать</p>
+  <h2 class="s-title">3 ШАГА — <span>И ТЫ В ДЕЛЕ</span></h2>
+  <div class="onb">
+    <div class="onb-card">
+      <div class="onb-top"><span class="onb-num">01</span><span class="onb-icon">📝</span></div>
+      <div class="onb-title">Зарегистрируйся на сайте</div>
+      <p class="onb-text">Пара полей — и аккаунт готов. Это займёт 2 минуты, а первый месяц Pro включится автоматически.</p>
+      <a href="register.html" class="onb-btn">Регистрация →</a>
+    </div>
+    <div class="onb-card">
+      <div class="onb-top"><span class="onb-num">02</span><span class="onb-icon">🍎</span></div>
+      <div class="onb-title">Скачай приложение</div>
+      <p class="onb-text">Solvo Beauty бесплатно в App Store. Работает на iPhone.</p>
+      <a href="https://apps.apple.com/ru/app/solvo-beauty/id6787732588" target="_blank" rel="noopener" class="onb-btn ghost">🍎 Открыть App Store</a>
+    </div>
+    <div class="onb-card">
+      <div class="onb-top"><span class="onb-num">03</span><span class="onb-icon">✨</span></div>
+      <div class="onb-title">Войди и отправь ссылку</div>
+      <p class="onb-text">Входишь с теми же email и паролем, добавляешь услуги и отправляешь клиентам свою ссылку — они записываются сами.</p>
+      <div class="onb-done">Готово — клиенты уже идут 🎉</div>
+    </div>
+  </div>
+  <p class="onb-note">Нужна помощь с настройкой? <a href="https://www.instagram.com/solvo.beauty" target="_blank" rel="noopener" style="text-decoration:none;"><b>Напиши нам — настроим вместе за 15 минут</b></a></p>
+</section>
+
+<!-- ─── MID DOLL CTA ─── -->
+<section class="mid-cta">
+  <div class="mid-cta-inner">
+    <div class="mid-cta-content">
+      <p class="s-label" style="justify-content:flex-start;">Почему мастера выбирают нас</p>
+      <h2 class="mid-cta-title">ЗАБУДЬ ПРО<br><span>«ЗАПИШИТЕ МЕНЯ»</span><br>В 23:00</h2>
+      <p class="mid-cta-desc">Больше не нужно отвечать ночью на «Есть ли у вас место в пятницу?». Приложение покажет расписание и запишет клиента само — даже пока ты спишь.</p>
+      <div class="mid-cta-stats">
+        <div class="mstat"><span class="mstat-n" data-target="280" data-suffix="+">280+</span><span class="mstat-l">Мастеров</span></div>
+        <div class="mstat"><span class="mstat-n">5★</span><span class="mstat-l">Рейтинг</span></div>
+        <div class="mstat"><span class="mstat-n" data-target="3" data-prefix="-" data-suffix="ч">-3ч</span><span class="mstat-l">Время на рутину</span></div>
+      </div>
+      <a href="https://apps.apple.com/ru/app/solvo-beauty/id6787732588" target="_blank" rel="noopener" class="btn-glow" style="text-decoration:none;display:inline-block;">🍎 Скачать в App Store</a>
+    </div>
+    <div class="mid-doll-wrap">
+      <div class="mid-doll-glow"></div>
+      <img src="images/bratz-doll-3.png" alt="Мастер красоты Solvo Beauty - промо изображение" class="mid-doll-img"
+           style="filter:drop-shadow(0 0 40px rgba(255,105,180,.4)) drop-shadow(0 20px 50px rgba(0,0,0,.6));">
+    </div>
+  </div>
+</section>
+
+<!-- ─── PRICING ─── -->
+<section class="section section-divider" id="pricing">
+  <p class="s-label">Тарифы</p>
+  <h2 class="s-title">ПРОСТЫЕ <span>ЦЕНЫ</span></h2>
+  <div class="pricing-grid">
+
+    <div class="p-card">
+      <div class="p-tier">СТАРТ</div>
+      <div class="p-amount" style="background:linear-gradient(90deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:38px;">БЕСПЛАТНО</div>
+      <div class="p-period">первые 30 дней Pro в подарок</div>
+      <div class="p-hr"></div>
+      <ul class="p-list">
+        <li>Безлимит клиентов (30 дней)</li>
+        <li>Авто-напоминания через Telegram</li>
+        <li>Онлайн-запись по ссылке</li>
+        <li>Статистика и аналитика</li>
+        <li>Поддержка в Telegram</li>
+      </ul>
+      <a href="https://apps.apple.com/ru/app/solvo-beauty/id6787732588" target="_blank" rel="noopener" class="btn-glow" style="display:block;text-align:center;text-decoration:none;padding:14px;border-radius:8px;font-size:13px;letter-spacing:1px;">🍎 Скачать бесплатно</a>
+    </div>
+
+    <div class="p-card featured">
+      <div class="p-hot">ХИТ</div>
+      <div class="p-tier">ПРО</div>
+      <div class="period-tabs" id="idx-period-pro">
+        <button class="period-tab active" onclick="setIdxPeriod('pro',0)">1 месяц</button>
+        <button class="period-tab" onclick="setIdxPeriod('pro',1)">6 месяцев</button>
+        <button class="period-tab" onclick="setIdxPeriod('pro',2)">1 год</button>
+        <button class="period-tab" onclick="setIdxPeriod('pro',3)">2 года</button>
+      </div>
+      <div class="p-amount" id="idx-pro-amount">690<small> ₽</small></div>
+      <div class="p-period" id="idx-pro-period">оплата ежемесячно</div>
+      <div class="stat-block">
+        <div class="stat-label-top" id="idx-pro-stat-label">📊 ЗА 1 МЕСЯЦ · СРЕДНЯЯ СТАТИСТИКА</div>
+        <div class="stat-chips">
+          <div class="stat-chip"><span class="stat-chip-val" id="idx-pro-stat-clients">3</span><span class="stat-chip-key">клиента вернулись</span></div>
+          <div class="stat-chip"><span class="stat-chip-val" id="idx-pro-stat-revenue">+6 900 ₽</span><span class="stat-chip-key">к выручке</span></div>
+          <div class="stat-chip"><span class="stat-chip-val" id="idx-pro-stat-roi">10x</span><span class="stat-chip-key">ROI</span></div>
+        </div>
+      </div>
+      <span class="saving-badge">Популярный выбор</span>
+      <div class="p-hr"></div>
+      <ul class="p-list">
+        <li>Безлимит клиентов</li>
+        <li>Авто-напоминания через Telegram</li>
+        <li>Онлайн-запись по ссылке</li>
+        <li>Статистика и аналитика</li>
+        <li>Поддержка в Telegram</li>
+      </ul>
+      <a id="idx-btn-pro" href="/pay.html?plan=pro_1m" class="btn-glow" style="display:block;text-align:center;text-decoration:none;padding:14px;border-radius:8px;font-size:13px;letter-spacing:1px;box-shadow:0 8px 24px rgba(255,105,180,.25);">💳 Оплатить 690 ₽</a>
+    </div>
+
+    <div class="p-card">
+      <div class="p-tier">БИЗНЕС</div>
+      <div class="period-tabs" id="idx-period-biz">
+        <button class="period-tab active" onclick="setIdxPeriod('biz',0)">1 месяц</button>
+        <button class="period-tab" onclick="setIdxPeriod('biz',1)">6 месяцев</button>
+        <button class="period-tab" onclick="setIdxPeriod('biz',2)">1 год</button>
+        <button class="period-tab" onclick="setIdxPeriod('biz',3)">2 года</button>
+      </div>
+      <div class="p-amount" id="idx-biz-amount">1 290<small> ₽</small></div>
+      <div class="p-period" id="idx-biz-period">оплата ежемесячно</div>
+      <div class="stat-block">
+        <div class="stat-label-top" id="idx-biz-stat-label">📊 ЗА 1 МЕСЯЦ · СРЕДНЯЯ СТАТИСТИКА</div>
+        <div class="stat-chips">
+          <div class="stat-chip"><span class="stat-chip-val" id="idx-biz-stat-clients">3</span><span class="stat-chip-key">клиента вернулись</span></div>
+          <div class="stat-chip"><span class="stat-chip-val" id="idx-biz-stat-revenue">+6 900 ₽</span><span class="stat-chip-key">к выручке</span></div>
+          <div class="stat-chip"><span class="stat-chip-val" id="idx-biz-stat-roi">5x</span><span class="stat-chip-key">ROI</span></div>
+        </div>
+      </div>
+      <div class="p-hr"></div>
+      <ul class="p-list">
+        <li>Всё из тарифа Про</li>
+        <li>Личная настройка от разработчика (30 мин)</li>
+        <li>Приоритетная поддержка (ответ в течение часа)</li>
+        <li>Ранний доступ к новым функциям</li>
+      </ul>
+      <a id="idx-btn-biz" href="/pay.html?plan=biz_1m" class="btn-glow" style="display:block;text-align:center;text-decoration:none;padding:14px;border-radius:8px;font-size:13px;letter-spacing:1px;">💳 Оплатить 1 290 ₽</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── REVIEWS ─── -->
+<section class="section section-divider" id="reviews">
+  <p class="s-label">Отзывы</p>
+  <h2 class="s-title">ОТЗЫВ <span>МАСТЕРА</span></h2>
+  <div class="review-hero">
+    <div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">«Пользуюсь Solvo Beauty уже четыре месяца — и к блокноту возвращаться точно не хочу. Раньше половина вечера уходила на переписку: у кого когда получится, есть ли окошко, а потом ещё всем напомнить про запись. Теперь клиентки записываются сами по моей ссылке, а напоминания в Telegram им приходят автоматически — неявок стало заметно меньше. Очень люблю карточку клиента: открываю и сразу вижу, что делали в прошлый раз, аллергии, день рождения. И наконец понимаю, сколько реально зарабатываю за месяц. Честно — даже неловко пользоваться бесплатно, за такое хочется платить.»</p>
+      <div class="review-header">
+        <svg class="review-avatar" viewBox="0 0 52 52">
+          <defs><linearGradient id="av1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FF69B4"/><stop offset="1" stop-color="#d060ff"/></linearGradient></defs>
+          <circle cx="26" cy="26" r="26" fill="url(#av1)"/>
+          <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="22" font-weight="900" font-family="Arial,sans-serif">И</text>
+        </svg>
+        <div class="review-meta">
+          <div class="review-name">Ирина</div>
+          <div class="review-role">Мастер красоты</div>
+          <div class="review-verified">✓ Пользуется Solvo Beauty 4 месяца</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-side">
+      <div class="review-chip"><span>📅</span>Запись без переписки</div>
+      <div class="review-chip"><span>🔔</span>Меньше неявок</div>
+      <div class="review-chip"><span>👤</span>Вся история клиентки</div>
+      <div class="review-chip"><span>💰</span>Видно доход за месяц</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STATS ─── -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <span class="stat-num" data-target="280" data-suffix="+">280+</span>
+      <div class="stat-label">мастеров уже работают</div>
+      <div class="stat-sub">по всей России</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="30" data-prefix="−" data-suffix="%">−30%</span>
+      <div class="stat-label">времени на рутину</div>
+      <div class="stat-sub">в среднем по мастерам</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="40" data-prefix="+" data-suffix="%">+40%</span>
+      <div class="stat-label">клиентов возвращаются</div>
+      <div class="stat-sub">благодаря авто-напоминаниям</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FAQ ─── -->
+<section class="section section-divider" id="faq">
+  <p class="s-label">FAQ</p>
+  <h2 class="s-title">ЧАСТЫЕ <span>ВОПРОСЫ</span></h2>
+  <div class="faq-list">
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Как скачать приложение?
+        <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-a">Solvo Beauty доступна в App Store. Скачай бесплатно — первый месяц Pro в подарок автоматически после регистрации.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Как клиенты записываются?
+        <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-a">По вашей личной ссылке. Вы получаете уникальный адрес — клиент переходит, видит ваше расписание и выбирает удобное время.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Что если клиент не пришёл?
+        <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-a">Приложение напомнит за сутки и за час до записи — и вы не потеряете деньги. Статистика пропусков также сохраняется в карточке клиента.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Как получить поддержку?
+        <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-a">Напишите нам на почту: <strong style="color:var(--pink)">beautybook@rambler.ru</strong>. Мы отвечаем в течение нескольких часов и помогаем с любыми вопросами.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── FINAL CTA ─── -->
+<div class="final-cta" id="cta">
+  <div class="cta-inner">
+    <div class="cta-tag">ДОСТУПНО В APP STORE</div>
+    <h2 class="cta-h">ГОТОВА РАБОТАТЬ<br><span>БЕЗ ХАОСА?</span></h2>
+    <p class="cta-sub">Скачай Solvo Beauty и получи первый месяц Pro бесплатно.</p>
+    <a href="https://apps.apple.com/ru/app/solvo-beauty/id6787732588" target="_blank" rel="noopener" class="btn-glow" style="text-decoration:none;display:inline-block;">🍎 Скачать в App Store</a>
+    <p class="cta-small">Бесплатно · Только iOS · Первый месяц Pro в подарок</p>
+  </div>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-social">
+    <!-- Email -->
+    <a href="mailto:beautybook@rambler.ru" class="social-link" aria-label="Email">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="sg3" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse"><stop stop-color="#FF69B4"/><stop offset="1" stop-color="#9370DB"/></linearGradient></defs>
+        <rect x="2" y="4" width="20" height="16" rx="3" stroke="url(#sg3)" stroke-width="1.5"/>
+        <path d="M2 8l10 7 10-7" stroke="url(#sg3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <!-- Instagram -->
+    <a href="https://www.instagram.com/solvo.beauty" class="social-link" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="sg4" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse"><stop stop-color="#FF69B4"/><stop offset="1" stop-color="#9370DB"/></linearGradient></defs>
+        <rect x="2" y="2" width="20" height="20" rx="5" stroke="url(#sg4)" stroke-width="1.5"/>
+        <circle cx="12" cy="12" r="4.5" stroke="url(#sg4)" stroke-width="1.5"/>
+        <circle cx="18" cy="6" r="1.2" fill="url(#sg4)"/>
+      </svg>
+    </a>
+  </div>
+  <p class="footer-contacts">📧 <a href="mailto:beautybook@rambler.ru">beautybook@rambler.ru</a> · <a href="https://www.instagram.com/solvo.beauty">@solvo.beauty</a></p>
+  <div class="footer-tags">
+    <span class="ftag">#solvobeauty</span>
+    <span class="ftag">#маникюр</span>
+    <span class="ftag">#бровист</span>
+    <span class="ftag">#лешмейкер</span>
+    <span class="ftag">#визажист</span>
+    <span class="ftag">#записьклиентов</span>
+    <span class="ftag">#crmдлямастера</span>
+    <span class="ftag">#бизнескрасоты</span>
+    <span class="ftag">#мастеркрасоты</span>
+  </div>
+  <p class="footer-copy">© 2026 SOLVO BEAUTY · ВСЕ ПРАВА ЗАЩИЩЕНЫ</p>
+  <p style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.25);">
+    <a href="/oferta.html" style="color:rgba(255,255,255,.35);text-decoration:none;margin:0 8px;">Публичная оферта</a> ·
+    <a href="/privacy.html" style="color:rgba(255,255,255,.35);text-decoration:none;margin:0 8px;">Политика конфиденциальности</a> ·
+    <a href="/contacts.html" style="color:rgba(255,255,255,.35);text-decoration:none;margin:0 8px;">Реквизиты</a>
+  </p>
+</footer>
+
+<script>
+(function(){
+  const g=document.getElementById('glitter');
+  for(let i=0;i<24;i++){
+    const s=document.createElement('div');s.className='spark';
+    const sz=Math.random()*3+2;
+    s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${Math.random()*6}s;animation-duration:${3+Math.random()*5}s;`;
+    g.appendChild(s);
+  }
+})();
+
+function toggleFaq(btn){
+  const item=btn.closest('.faq-item');
+  const isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el=>el.classList.remove('open'));
+  if(!isOpen)item.classList.add('open');
+}
+
+const idxPeriodLabels = ['ЗА 1 МЕСЯЦ','ЗА 6 МЕСЯЦЕВ','ЗА 1 ГОД','ЗА 2 ГОДА'];
+const idxProStats = [
+  {clients:'3',revenue:'+6 900 ₽',roi:'10x'},
+  {clients:'18',revenue:'+41 400 ₽',roi:'12x'},
+  {clients:'36',revenue:'+82 800 ₽',roi:'14x'},
+  {clients:'72',revenue:'+165 600 ₽',roi:'17x'},
+];
+const idxBizStats = [
+  {clients:'3',revenue:'+6 900 ₽',roi:'5x'},
+  {clients:'18',revenue:'+41 400 ₽',roi:'6x'},
+  {clients:'36',revenue:'+82 800 ₽',roi:'7x'},
+  {clients:'72',revenue:'+165 600 ₽',roi:'9x'},
+];
+
+const idxProPrices = [
+  {amount:'690<small> ₽</small>',period:'оплата ежемесячно',btn:'690 ₽',plan:'pro_1m'},
+  {amount:'3 490<small> ₽</small>',period:'582 ₽/мес · −16%',btn:'3 490 ₽',plan:'pro_6m'},
+  {amount:'5 990<small> ₽</small>',period:'499 ₽/мес · −28%',btn:'5 990 ₽',plan:'pro_1y'},
+  {amount:'9 990<small> ₽</small>',period:'416 ₽/мес · −40%',btn:'9 990 ₽',plan:'pro_2y'},
+];
+const idxBizPrices = [
+  {amount:'1 290<small> ₽</small>',period:'оплата ежемесячно',btn:'1 290 ₽',plan:'biz_1m'},
+  {amount:'6 490<small> ₽</small>',period:'1 082 ₽/мес · −16%',btn:'6 490 ₽',plan:'biz_6m'},
+  {amount:'11 200<small> ₽</small>',period:'933 ₽/мес · −28%',btn:'11 200 ₽',plan:'biz_1y'},
+  {amount:'18 900<small> ₽</small>',period:'788 ₽/мес · −39%',btn:'18 900 ₽',plan:'biz_2y'},
+];
+function setIdxPeriod(tier, idx){
+  const prices = tier === 'pro' ? idxProPrices : idxBizPrices;
+  const p = prices[idx];
+  document.getElementById('idx-'+tier+'-amount').innerHTML = p.amount;
+  document.getElementById('idx-'+tier+'-period').textContent = p.period;
+  const tabs = document.getElementById('idx-period-'+tier).querySelectorAll('.period-tab');
+  tabs.forEach((t,i)=>t.classList.toggle('active',i===idx));
+  const btn = document.getElementById('idx-btn-'+tier);
+  if(btn){ btn.textContent = '💳 Оплатить ' + p.btn; btn.href = '/pay.html?plan=' + p.plan; }
+  const stats = tier === 'pro' ? idxProStats : idxBizStats;
+  const s = stats[idx];
+  document.getElementById('idx-'+tier+'-stat-label').textContent = '📊 ' + idxPeriodLabels[idx] + ' · СРЕДНЯЯ СТАТИСТИКА';
+  document.getElementById('idx-'+tier+'-stat-clients').textContent = s.clients;
+  document.getElementById('idx-'+tier+'-stat-revenue').textContent = s.revenue;
+  document.getElementById('idx-'+tier+'-stat-roi').textContent = s.roi;
+}
+
+// Stats counter animation
+(function(){
+  const statNums=document.querySelectorAll('.stat-num[data-target]');
+  if(!statNums.length)return;
+  const observer=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting)return;
+      const el=entry.target;
+      const target=parseInt(el.dataset.target,10);
+      const prefix=el.dataset.prefix||'';
+      const suffix=el.dataset.suffix||'';
+      const duration=1400;
+      const start=performance.now();
+      function step(now){
+        const elapsed=now-start;
+        const progress=Math.min(elapsed/duration,1);
+        const eased=1-Math.pow(1-progress,3);
+        const value=Math.round(eased*target);
+        el.textContent=prefix+value+suffix;
+        if(progress<1)requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+      observer.unobserve(el);
+    });
+  },{threshold:0.5});
+  statNums.forEach(el=>observer.observe(el));
+})();
+</script>
+</body>
+</html>
