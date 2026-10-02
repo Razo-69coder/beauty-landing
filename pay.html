@@ -386,7 +386,7 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
         <button class="period-tab" onclick="setPeriod('pro',2)">1 год</button>
         <button class="period-tab" onclick="setPeriod('pro',3)">2 года</button>
       </div>
-      <div class="p-amount" id="pro-amount">690<small> ₽</small></div>
+      <div class="p-amount" id="pro-amount">590<small> ₽</small></div>
       <div class="p-period" id="pro-period">оплата ежемесячно</div>
       <div class="stat-block">
         <div class="stat-label-top" id="pro-stat-label">📊 ЗА 1 МЕСЯЦ · СРЕДНЯЯ СТАТИСТИКА</div>
@@ -405,7 +405,7 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
         <li>Статистика и аналитика</li>
         <li>Поддержка в Telegram</li>
       </ul>
-      <button class="pay-btn primary" id="btn-pro" onclick="openModal('pro')">Оплатить 690 ₽</button>
+      <button class="pay-btn primary" id="btn-pro" onclick="openModal('pro')">Оплатить 590 ₽</button>
     </div>
 
     <!-- Карточка 3 — БИЗНЕС -->
@@ -417,7 +417,7 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
         <button class="period-tab" onclick="setPeriod('biz',2)">1 год</button>
         <button class="period-tab" onclick="setPeriod('biz',3)">2 года</button>
       </div>
-      <div class="p-amount" id="biz-amount">1 290<small> ₽</small></div>
+      <div class="p-amount" id="biz-amount">990<small> ₽</small></div>
       <div class="p-period" id="biz-period">оплата ежемесячно</div>
       <div class="stat-block">
         <div class="stat-label-top" id="biz-stat-label">📊 ЗА 1 МЕСЯЦ · СРЕДНЯЯ СТАТИСТИКА</div>
@@ -434,7 +434,7 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
         <li>Приоритетная поддержка (ответ в течение часа)</li>
         <li>Ранний доступ к новым функциям</li>
       </ul>
-      <button class="pay-btn primary" id="btn-biz" onclick="openModal('biz')">Оплатить 1 290 ₽</button>
+      <button class="pay-btn primary" id="btn-biz" onclick="openModal('biz')">Оплатить 990 ₽</button>
     </div>
 
   </div>
@@ -446,7 +446,7 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
     <button class="modal-close" onclick="closeModal()">×</button>
     <div class="modal-title">Войти в аккаунт</div>
     <p class="modal-sub">Введите данные от приложения Solvo Beauty</p>
-    <div class="modal-plan-badge" id="modal-plan-badge">Про · Месяц · 690 ₽</div>
+    <div class="modal-plan-badge" id="modal-plan-badge">Про · Месяц · 590 ₽</div>
 
     <div id="modal-form-wrap">
       <form class="modal-form" onsubmit="submitPayment(event)">
@@ -531,17 +531,17 @@ const bizStats = [
 ];
 
 const proPrices = [
-  {amount:'690<span class="small"> ₽</span>',period:'оплата ежемесячно',btn:'690 ₽',plan:'pro_1m',label:'Про · Месяц · 690 ₽'},
-  {amount:'3 490<span class="small"> ₽</span>',period:'582 ₽/мес · экономия 650 ₽',btn:'3 490 ₽',plan:'pro_6m',label:'Про · 6 месяцев · 3 490 ₽'},
-  {amount:'5 990<span class="small"> ₽</span>',period:'499 ₽/мес · экономия 2 290 ₽',btn:'5 990 ₽',plan:'pro_1y',label:'Про · Год · 5 990 ₽'},
-  {amount:'9 990<span class="small"> ₽</span>',period:'416 ₽/мес · экономия 6 570 ₽',btn:'9 990 ₽',plan:'pro_2y',label:'Про · 2 года · 9 990 ₽'},
+  {amount:'590<span class="small"> ₽</span>',period:'оплата ежемесячно',btn:'590 ₽',plan:'pro_1m',label:'Про · Месяц · 590 ₽'},
+  {amount:'2 990<span class="small"> ₽</span>',period:'498 ₽/мес · экономия 550 ₽',btn:'2 990 ₽',plan:'pro_6m',label:'Про · 6 месяцев · 2 990 ₽'},
+  {amount:'4 790<span class="small"> ₽</span>',period:'399 ₽/мес · экономия 2 290 ₽',btn:'4 790 ₽',plan:'pro_1y',label:'Про · Год · 4 790 ₽'},
+  {amount:'8 390<span class="small"> ₽</span>',period:'350 ₽/мес · экономия 5 770 ₽',btn:'8 390 ₽',plan:'pro_2y',label:'Про · 2 года · 8 390 ₽'},
 ];
 
 const bizPrices = [
-  {amount:'1 290<span class="small"> ₽</span>',period:'оплата ежемесячно',btn:'1 290 ₽',plan:'biz_1m',label:'Бизнес · Месяц · 1 290 ₽'},
-  {amount:'6 490<span class="small"> ₽</span>',period:'1 082 ₽/мес · экономия 1 250 ₽',btn:'6 490 ₽',plan:'biz_6m',label:'Бизнес · 6 месяцев · 6 490 ₽'},
-  {amount:'11 200<span class="small"> ₽</span>',period:'933 ₽/мес · экономия 4 280 ₽',btn:'11 200 ₽',plan:'biz_1y',label:'Бизнес · Год · 11 200 ₽'},
-  {amount:'18 900<span class="small"> ₽</span>',period:'788 ₽/мес · экономия 12 060 ₽',btn:'18 900 ₽',plan:'biz_2y',label:'Бизнес · 2 года · 18 900 ₽'},
+  {amount:'990<span class="small"> ₽</span>',period:'оплата ежемесячно',btn:'990 ₽',plan:'biz_1m',label:'Бизнес · Месяц · 990 ₽'},
+  {amount:'4 990<span class="small"> ₽</span>',period:'832 ₽/мес · экономия 950 ₽',btn:'4 990 ₽',plan:'biz_6m',label:'Бизнес · 6 месяцев · 4 990 ₽'},
+  {amount:'7 990<span class="small"> ₽</span>',period:'666 ₽/мес · экономия 3 890 ₽',btn:'7 990 ₽',plan:'biz_1y',label:'Бизнес · Год · 7 990 ₽'},
+  {amount:'13 990<span class="small"> ₽</span>',period:'583 ₽/мес · экономия 9 770 ₽',btn:'13 990 ₽',plan:'biz_2y',label:'Бизнес · 2 года · 13 990 ₽'},
 ];
 
 function setPeriod(tier, idx){
