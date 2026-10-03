@@ -111,6 +111,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     <div class="title" id="list-title">Ваши записи</div>
     <div class="subtitle" id="list-subtitle"></div>
     <div id="appt-list"></div>
+    <div class="err" id="err-list"></div>
   </div>
 
   <!-- Экран 3: Выбор новой даты/времени -->
@@ -236,7 +237,7 @@ function renderList() {
         ${a.price > 0 ? '<span>💰 <b>' + a.price + ' ₽</b></span>' : ''}
       </div>
       <div class="appt-actions">
-        <button class="btn-cancel-appt" onclick="cancelAppt(${a.id})">Отменить</button>
+        <button class="btn-cancel-appt" onclick="cancelAppt(${a.id}, this)">Отменить</button>
         <button class="btn-reschedule-appt" onclick="startReschedule(${a.id})">Перенести</button>
       </div>
     </div>`;
@@ -247,22 +248,38 @@ function escHtml(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
-async function cancelAppt(id) {
-  if (!confirm('Отменить эту запись?')) return;
+// Подтверждение прямо на кнопке: системный confirm() не работает во встроенных браузерах Telegram/Instagram/WhatsApp
+async function cancelAppt(id, btn) {
+  if (btn && btn.dataset.armed !== '1') {
+    btn.dataset.armed = '1';
+    btn.textContent = 'Точно отменить?';
+    btn.style.background = 'rgba(255,100,100,0.25)';
+    clearTimeout(btn._t);
+    btn._t = setTimeout(() => { btn.dataset.armed = ''; btn.textContent = 'Отменить'; btn.style.background = ''; }, 4000);
+    return;
+  }
+  if (btn) { clearTimeout(btn._t); btn.disabled = true; btn.textContent = 'Отменяем…'; }
   try {
     const r = await fetch(API + '/api/v1/my/' + slug + '/cancel?appointment_id=' + id, {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({phone})
     });
-    if (!r.ok) { showErr('err-phone', 'Не удалось отменить'); return; }
+    if (!r.ok) {
+      let msg = 'Не удалось отменить запись';
+      try { const j = await r.json(); if (j && j.detail) msg += ': ' + j.detail; } catch(_) {}
+      showErr('err-list', msg + '. Напишите мастеру.');
+      if (btn) { btn.disabled = false; btn.dataset.armed = ''; btn.textContent = 'Отменить'; btn.style.background = ''; }
+      return;
+    }
     document.getElementById('success-icon').textContent = '❌';
     document.getElementById('success-title').textContent = 'Запись отменена';
     document.getElementById('success-text').textContent = 'Ваша запись успешно отменена. Мастер получил уведомление.';
     appointments = appointments.filter(a => a.id !== id);
     showScreen('success');
   } catch(e) {
-    showErr('err-phone', 'Ошибка соединения');
+    showErr('err-list', 'Нет связи с сервером. Проверьте интернет и попробуйте ещё раз.');
+    if (btn) { btn.disabled = false; btn.dataset.armed = ''; btn.textContent = 'Отменить'; btn.style.background = ''; }
   }
 }
 
