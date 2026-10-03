@@ -108,7 +108,7 @@ nav{
 
 /* ─── PRICING ─── */
 .pricing-section{padding:0 20px 80px;max-width:1100px;margin:0 auto;position:relative;z-index:1;}
-.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;}
 .p-card{
   border:1px solid rgba(255,255,255,.08);border-radius:16px;
   padding:36px 28px;position:relative;overflow:hidden;
@@ -376,9 +376,29 @@ footer{border-top:1px solid rgba(255,255,255,.05);padding:44px 20px;text-align:c
       <a href="APP_STORE_LINK" class="pay-btn primary" style="text-decoration:none;display:block;text-align:center;">🍎 Скачать бесплатно</a>
     </div>
 
-    <!-- Карточка 2 — ПРО -->
-    <div class="p-card featured">
-      <div class="p-hot">ХИТ</div>
+    <!-- Карточка — ПЕРВЫЕ МАСТЕРА (скрыта, если места закончились) -->
+    <div class="p-card featured" id="early-card">
+      <div class="p-hot">НАВСЕГДА</div>
+      <div class="p-tier">ПЕРВЫЕ 100 МАСТЕРОВ</div>
+      <div class="period-tabs" id="period-early">
+        <button class="period-tab active" onclick="setPeriod('early',0)">1 месяц</button>
+        <button class="period-tab" onclick="setPeriod('early',1)">1 год</button>
+      </div>
+      <div class="p-amount" id="early-amount">299<small> ₽</small></div>
+      <div class="p-period" id="early-period">в месяц · навсегда</div>
+      <span class="saving-badge" id="early-seats">Цена сохраняется навсегда</span>
+      <div class="p-hr"></div>
+      <ul class="p-list">
+        <li>Всё из тарифа Про</li>
+        <li>Цена не вырастет никогда</li>
+        <li>Обычная цена — 590 ₽/мес</li>
+      </ul>
+      <button class="pay-btn primary" id="btn-early" onclick="openModal('early')">Оплатить 299 ₽</button>
+    </div>
+
+    <!-- Карточка 2 — ПРО (становится главной, когда места первых мастеров закончились) -->
+    <div class="p-card" id="pro-card">
+      <div class="p-hot" id="pro-hot" style="display:none">ХИТ</div>
       <div class="p-tier">ПРО</div>
       <div class="period-tabs" id="period-pro">
         <button class="period-tab active" onclick="setPeriod('pro',0)">1 месяц</button>
@@ -537,6 +557,11 @@ const proPrices = [
   {amount:'8 390<span class="small"> ₽</span>',period:'350 ₽/мес · экономия 5 770 ₽',btn:'8 390 ₽',plan:'pro_2y',label:'Про · 2 года · 8 390 ₽'},
 ];
 
+const earlyPrices = [
+  {amount:'299<span class="small"> ₽</span>',period:'в месяц · навсегда',btn:'299 ₽',plan:'early_1m',label:'Первые мастера · Месяц · 299 ₽'},
+  {amount:'2 990<span class="small"> ₽</span>',period:'249 ₽/мес · навсегда',btn:'2 990 ₽',plan:'early_1y',label:'Первые мастера · Год · 2 990 ₽'},
+];
+
 const bizPrices = [
   {amount:'990<span class="small"> ₽</span>',period:'оплата ежемесячно',btn:'990 ₽',plan:'biz_1m',label:'Бизнес · Месяц · 990 ₽'},
   {amount:'4 990<span class="small"> ₽</span>',period:'832 ₽/мес · экономия 950 ₽',btn:'4 990 ₽',plan:'biz_6m',label:'Бизнес · 6 месяцев · 4 990 ₽'},
@@ -545,7 +570,7 @@ const bizPrices = [
 ];
 
 function setPeriod(tier, idx){
-  const prices = tier === 'pro' ? proPrices : bizPrices;
+  const prices = tier === 'pro' ? proPrices : tier === 'early' ? earlyPrices : bizPrices;
   const p = prices[idx];
   document.getElementById(tier+'-amount').innerHTML = p.amount;
   document.getElementById(tier+'-period').textContent = p.period;
@@ -553,6 +578,7 @@ function setPeriod(tier, idx){
   tabs.forEach((t,i)=>t.classList.toggle('active',i===idx));
   const btn = document.getElementById('btn-'+tier);
   if(btn) btn.textContent = 'Оплатить ' + p.btn;
+  if(tier === 'early') return; // у тарифа первых мастеров нет блока статистики
   const stats = tier === 'pro' ? proStats : bizStats;
   const s = stats[idx];
   document.getElementById(tier+'-stat-label').textContent = '📊 ' + periodLabels[idx] + ' · СРЕДНЯЯ СТАТИСТИКА';
@@ -563,9 +589,20 @@ function setPeriod(tier, idx){
 
 let currentTier = 'pro';
 
+// Сколько мест по цене первых мастеров осталось
+(async function loadEarlySeats(){
+  try{
+    const r = await fetch('https://beauty-bot-44ou.onrender.com/api/v1/early/seats');
+    const d = await r.json();
+    const card = document.getElementById('early-card');
+    if(d.left <= 0){ card.style.display = 'none'; document.getElementById('pro-card').classList.add('featured'); document.getElementById('pro-hot').style.display = ''; return; }
+    document.getElementById('early-seats').textContent = 'Осталось ' + d.left + ' из ' + d.limit + ' мест';
+  }catch(e){}
+})();
+
 function openModal(tier){
   currentTier = tier;
-  const prices = tier === 'pro' ? proPrices : bizPrices;
+  const prices = tier === 'pro' ? proPrices : tier === 'early' ? earlyPrices : bizPrices;
   const idx = [...document.getElementById('period-'+tier).querySelectorAll('.period-tab')].findIndex(t=>t.classList.contains('active'));
   const p = prices[idx >= 0 ? idx : 0];
   document.getElementById('modal-plan').value = p.plan;

@@ -284,6 +284,10 @@ section{position:relative;z-index:2;}
 .bill button{font:600 14px var(--sans);color:var(--muted);background:none;border:0;padding:10px 20px;min-height:44px;border-radius:100px;cursor:pointer;transition:all .3s var(--ease);}
 .bill button.on{background:var(--pearl);color:var(--ink);}
 .bill button i{font-style:normal;color:var(--blush);margin-left:4px;}
+.early{display:inline-flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:28px;padding:14px 22px;border-radius:999px;border:1px solid rgba(255,111,174,.45);background:rgba(255,111,174,.08);color:var(--ink,#f6eef2);text-decoration:none;font-size:15px;}
+.early[hidden]{display:none;}
+.early b{color:var(--blush,#ff6fae);}
+.early span{color:var(--muted);}
 .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px;text-align:left;}
 .plan{padding:38px 32px;border-radius:28px;border:1px solid var(--line);background:rgba(246,238,242,.02);display:flex;flex-direction:column;}
 .plan.hot{background:linear-gradient(170deg,rgba(255,111,174,.13),rgba(180,140,255,.05) 60%,rgba(246,238,242,.02));border-color:rgba(255,111,174,.4);position:relative;}
@@ -567,6 +571,7 @@ footer{border-top:1px solid var(--line);padding:48px 24px;}
     <div class="eyebrow rv" style="justify-content:center;">Тарифы</div>
     <h2 class="h2 rv">Дешевле, чем <em>одна неявка</em></h2>
     <p class="lead rv" style="margin:0 auto;">Одна клиентка, которая не пришла, стоит дороже месяца Solvo Beauty.</p>
+    <a class="early rv" id="early-banner" href="pay.html" hidden>🔥 <b>Первые 100 мастеров — 299 ₽/мес навсегда</b> <span id="early-left"></span> →</a>
     <div class="bill rv" role="tablist">
       <button class="on" data-p="m">Помесячно</button>
       <button data-p="y">На год <i>−32%</i></button>
@@ -697,6 +702,18 @@ footer{border-top:1px solid var(--line);padding:48px 24px;}
     document.querySelectorAll('.plan-per[data-m]').forEach(el => el.textContent = el.dataset[p]);
     document.querySelectorAll('.plan a[data-m]').forEach(el => el.href = el.dataset[p]);
   }));
+})();
+</script>
+<script>
+// Цена первых мастеров: показываем, пока есть места
+(async function(){
+  try{
+    const d = await (await fetch('https://beauty-bot-44ou.onrender.com/api/v1/early/seats')).json();
+    if(d.left > 0){
+      document.getElementById('early-left').textContent = '· осталось ' + d.left + ' мест';
+      document.getElementById('early-banner').hidden = false;
+    }
+  }catch(e){}
 })();
 </script>
 </body>
